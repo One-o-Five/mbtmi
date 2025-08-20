@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +21,7 @@ useEffect(() => {
       .catch(error => {
         console.error("에러 발생:", error);
       });
+      
   }, []); // 컴포넌트 처음 렌더링될 때 실행
 
   return (

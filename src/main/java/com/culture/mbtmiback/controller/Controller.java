@@ -12,7 +12,7 @@ public class Controller {
     @GetMapping("/api/data/hello")
     public Map<String, String> hello() {
         Map<String, String> response = new HashMap<>();
-        response.put("message", "Hello from Spring Boot!!!!!!!!!!");
+        response.put("message", "마 정신 똑디 안차리노!!!!");
         System.out.println(11);
 
         return response;

@@ -22,6 +22,7 @@ useEffect(() => {
       .catch(error => {
         console.error("에러 발생:", error);
       });
+      
   }, []); // 컴포넌트 처음 렌더링될 때 실행
 
   return (

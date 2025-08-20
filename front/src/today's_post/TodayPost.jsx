@@ -14,6 +14,6 @@ const Container = styled.div`
 `;
 
 const TodayPost = () => {
-    return <Container>a</Container>;
+    return <Container></Container>;
 };
 export default TodayPost;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import BottomNav from "./BottomNav";
 
 const Container = styled.div`
     min-height: 100dvh; /* 최신 브라우저에서 안전하게 화면 높이 */
@@ -14,6 +15,10 @@ const Container = styled.div`
 `;
 
 const TodayPost = () => {
-    return <Container></Container>;
+    return (
+        <Container>
+            <BottomNav />
+        </Container>
+    );
 };
 export default TodayPost;

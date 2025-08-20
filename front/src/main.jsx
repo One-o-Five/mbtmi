@@ -4,10 +4,11 @@ import "./index.css";
 import TodayPost from "./today's_post/TodayPost";
 import Account from "./account/account01";
 
+import TodayPost from "./today's_post/TodayPost.jsx";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <TodayPost/> */}
+    <TodayPost/>
     <Account/>
   </StrictMode>,
 )

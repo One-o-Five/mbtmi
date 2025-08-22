@@ -1,19 +1,31 @@
 import styled from "styled-components";
 import profileimage from "../assets/img/kar.jpg";
+import logoimage from "../assets/img/mbtmi.jpg";
 
 const Container = styled.div`
+  position: relative;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 40px;
+  padding: 0px 50px;
   overflow-y: hidden;
 
   /* 파스텔톤 배경 그라데이션 */
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
 `;
 
+const LogoImage = styled.img`
+  position: absolute;
+  top: 0px;
+  left: 30px;
+  object-fit: cover;
+  width: 150px;
+`;
+
 const Card = styled.div`
+  width: 100%;
+  max-width: 400px;
   padding: 24px;
   border-radius: 20px;
 
@@ -34,13 +46,16 @@ const Card = styled.div`
 
   /* 그림자 (유리의 입체감) */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-
   color: #fff;
   text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const ProfileImage = styled.img`
-  width: 100%;
+  width: 80%;
   border-radius: 20px;
   object-fit: cover;
 `;
@@ -49,14 +64,7 @@ const Name = styled.h2`
   font-size: 1.5rem;
 `;
 
-const Info = styled.p`
-  margin: 5px 0;
-  font-size: 1rem;
-  color: #555;
-`;
-
 const TagList = styled.div`
-  margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -72,7 +80,6 @@ const Tag = styled.span`
 `;
 
 const Btns = styled.div`
-  margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
@@ -103,9 +110,18 @@ const Home = () => {
 
   return (
     <Container>
+      <LogoImage
+        src={logoimage}
+        alt=""
+        style={{ userSelect: "none", WebkitUserDrag: "none" }}
+      />
       <Card>
         {/* <ProfileImage src={profile.imageUrl} /> */}
-        <ProfileImage src={profileimage} alt="" />
+        <ProfileImage
+          src={profileimage}
+          alt=""
+          style={{ userSelect: "none", WebkitUserDrag: "none" }}
+        />
         <Name>
           {profile.name} ({profile.age}) / {profile.mbti}
         </Name>

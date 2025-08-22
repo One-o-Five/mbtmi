@@ -2,8 +2,53 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import mainLogo from "../assets/img/mainLogo.jpg";
 import mbtmi from "../assets/img/mbtmi.jpg";
+import { useNavigate } from "react-router-dom";
 
-// Define the fade-out animation
+
+
+const Account01 = () => {
+  const [showClouds, setShowClouds] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowClouds(false);
+    }, 2000); // <-- Change this to 3000ms
+
+    return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+  return (
+    <Container>
+      {showClouds && (
+        <CloudOverlay>
+          <Cloud />
+          <Cloud />
+          <Cloud />
+          <Cloud />
+        </CloudOverlay>
+      )}
+
+      {!showClouds && (
+        <>
+          <div>
+            <Logo src={mainLogo} alt="Main Logo" />
+          </div>
+          <div>
+            <Mbtmi src={mbtmi} alt="MBTI Logo" />
+          </div>
+          <ButtonLogin>
+            <button onClick={() => navigate("/login")}>로그인</button>
+          </ButtonLogin>
+          <ButtonAccount>
+            <button>회원가입</button>
+          </ButtonAccount>
+        </>
+      )}
+    </Container>
+  );
+};
+
 const fadeOut = keyframes`
   0% {
     opacity: 1;
@@ -18,16 +63,16 @@ const fadeOut = keyframes`
 
 // Container for the whole screen
 const Container = styled.div`
-  min-height: 100dvh;
+  height: 100dvh; /* min-height를 height로 변경 */
   width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden; /* x축만이 아닌 모든 방향의 스크롤을 숨깁니다 */
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center; /* flex-start -> center로 변경하여 수직 중앙 정렬 */
   align-items: center;
-  padding-top: 50px;
+  /* padding-top: 50px; <-- 이 줄을 삭제합니다 */
 `;
 
 // Cloud component with animation
@@ -85,7 +130,11 @@ const Cloud = styled.div`
 const Logo = styled.img`
   width: 200px;
   height: auto;
-  margin-top: 80px;
+  margin-top: 60px;
+  border-radius: 12px;
+  position: relative;
+  display: block;
+  overflow: hidden;
 `;
 
 const Mbtmi = styled.img`
@@ -102,47 +151,7 @@ const ButtonAccount = styled.div`
   margin-top: 30px;
 `;
 
-const Account = () => {
-  const [showClouds, setShowClouds] = useState(true);
+// Define the fade-out animation
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowClouds(false);
-    }, 2000); // <-- Change this to 3000ms
 
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
-
-  return (
-    <Container>
-      {showClouds && (
-        <CloudOverlay>
-          <Cloud />
-          <Cloud />
-          <Cloud />
-          <Cloud />
-        </CloudOverlay>
-      )}
-
-      {/* Main content, rendered only after clouds are hidden */}
-      {!showClouds && (
-        <>
-          <div>
-            <Logo src={mainLogo} alt="Main Logo" />
-          </div>
-          <div>
-            <Mbtmi src={mbtmi} alt="MBTI Logo" />
-          </div>
-          <ButtonLogin>
-            <button>로그인</button>
-          </ButtonLogin>
-          <ButtonAccount>
-            <button>회원가입</button>
-          </ButtonAccount>
-        </>
-      )}
-    </Container>
-  );
-};
-
-export default Account;
+export default Account01;

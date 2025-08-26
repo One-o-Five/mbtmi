@@ -64,3 +64,8 @@ dist-ssr
 
 
 src/main/resources/application.properties
+
+# 개인 gradle 설정 제외
+build.gradle
+settings.gradle
+gradle/wrapper/gradle-wrapper.properties

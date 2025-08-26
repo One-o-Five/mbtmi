@@ -4,8 +4,6 @@ import mainLogo from "../assets/img/mainLogo.jpg";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Account01 = () => {
   const [showClouds, setShowClouds] = useState(true);
   const navigate = useNavigate();
@@ -37,11 +35,9 @@ const Account01 = () => {
           <div>
             <Mbtmi src={mbtmi} alt="MBTI Logo" />
           </div>
-          <ButtonLogin>
-            <button onClick={() => navigate("/login")}>로그인</button>
-          </ButtonLogin>
-          <ButtonAccount>
-            <button>회원가입</button>
+          <ButtonLogin onClick={() => navigate("/login")}>로그인</ButtonLogin>
+          <ButtonAccount onClick={() => navigate("/Info")}>
+            회원가입
           </ButtonAccount>
         </>
       )}
@@ -144,14 +140,63 @@ const Mbtmi = styled.img`
 `;
 
 const ButtonLogin = styled.div`
-  margin-top: 35px;
+  width: 220px;
+  height: 30px; /* 높이 지정해서 버튼 크기 통일 */
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
+    -6px -6px 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* 텍스트 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.3),
+      inset -4px -4px 12px rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(1px);
+  }
 `;
 
 const ButtonAccount = styled.div`
-  margin-top: 30px;
+  width: 220px;
+  height: 30px; /* 높이 지정해서 버튼 크기 통일 */
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
+    -6px -6px 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* 텍스트 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.3),
+      inset -4px -4px 12px rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(1px);
+  }
 `;
-
-// Define the fade-out animation
-
 
 export default Account01;

@@ -16,7 +16,7 @@ public class WebConfig {
                         .allowedOriginPatterns("http://localhost:*") // ✅ localhost 포트 와일드카드
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(false);
+                        .allowCredentials(true);
             }
         };
     }

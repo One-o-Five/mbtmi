@@ -1,15 +1,17 @@
 import BottomNav from "../globaltool/BottomNav";
 import Container from "../globaltool/Container";
-import PostMain from "./PostMain";
 import TopNav from "../globaltool/TopNav";
+import TmiMain from "./TmiMain";
+import TmiMbtiSearch from "./TmiMbtiSearch";
 
-const TodayPost = () => {
+const TodayTmi = () => {
     return (
         <Container>
             <TopNav />
-            <PostMain />
+            <TmiMbtiSearch />
+            <TmiMain />
             <BottomNav />
         </Container>
     );
 };
-export default TodayPost;
+export default TodayTmi;

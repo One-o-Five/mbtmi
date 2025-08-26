@@ -1,15 +1,15 @@
 import BottomNav from "../globaltool/BottomNav";
 import Container from "../globaltool/Container";
-import PostMain from "./PostMain";
-import TopNav from "../globaltool/TopNav";
+import KakaoMap from "./KakaoMap";
+import MapSearch from "./MapSearch";
 
-const TodayPost = () => {
+const Map = () => {
     return (
         <Container>
-            <TopNav />
-            <PostMain />
+            <MapSearch />
+            {/* <KakaoMap /> */}
             <BottomNav />
         </Container>
     );
 };
-export default TodayPost;
+export default Map;

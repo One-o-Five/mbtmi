@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import ChattingProfile from "./chatting/ChattingProfile";
+import Activity from "./activities/ActivityGive";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ChattingProfile />
+    <Activity />
   </StrictMode>
 );

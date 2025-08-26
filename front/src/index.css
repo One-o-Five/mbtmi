@@ -22,12 +22,20 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+/* ✅ body와 #root가 화면 전체를 차지하도록 수정 */
+body,
+#root {
   margin: 0;
-  display: flex;
-  place-items: center;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+body {
+  display: block; /* 원래 flex 때문에 전체가 안나왔음 */
   min-width: 320px;
   min-height: 100vh;
+  background-color: #242424; /* 혹시 흰색 여백 방지 */
 }
 
 h1 {

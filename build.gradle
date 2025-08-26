@@ -30,7 +30,13 @@ dependencies {
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+
+    // ✅ Oracle Autonomous DB 연결용
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc11:23.5.0.24.07'
+    runtimeOnly 'com.oracle.database.security:oraclepki:23.5.0.24.07'
+    runtimeOnly 'com.oracle.database.security:osdt_core:23.5.0.24.07'
+    runtimeOnly 'com.oracle.database.security:osdt_cert:23.5.0.24.07'
+
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

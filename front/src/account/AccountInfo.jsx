@@ -47,7 +47,24 @@ const AccountInfo = () => {
     checkPassWordBoth();
     allCheck();
   };
+  //사진추가용
+  // 📌 프로필 이미지 상태
+  const [profileImage, setProfileImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileImage(file);
+
+      // 미리보기
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <Container>
       <CreateAcc>
@@ -81,6 +98,24 @@ const AccountInfo = () => {
           onChange={(e) => setCheckPassWord(e.target.value)}
           placeholder="비밀번호를 다시한번 입력해주세요"
         />
+      </SideLeft>
+      <SideLeft>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h3>프로필 사진</h3>
+          {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
+          <FileInput
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
       </SideLeft>
       <SideLeft>
         <h3>이름 입력</h3>
@@ -130,6 +165,20 @@ const AccountInfo = () => {
     </Container>
   );
 };
+const FileInput = styled.input`
+  margin: 10px 0;
+  width: 200px;
+  margin-left: 50px;
+`;
+
+const PreviewImage = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 10px;
+  border: 2px solid #a6c1ee;
+`;
 const GenderWrapper = styled.div`
   display: flex;
   justify-content: center;

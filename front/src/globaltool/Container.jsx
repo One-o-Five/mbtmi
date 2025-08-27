@@ -8,6 +8,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 
     /* 파스텔톤 배경 그라데이션 */
     background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);

@@ -62,6 +62,8 @@ dist-ssr
 *.sln
 *.sw?
 
+src/db.sql
+
 
 src/main/resources/application.properties
 

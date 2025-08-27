@@ -4,24 +4,20 @@ import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
 
 const AccountInfo = () => {
-  const [id, setId] = useState(""); // 아이디
-  const [passWord, setPassWord] = useState(""); //첫번째 비번
-  const [checkPassWord, setCheckPassWord] = useState(""); //두번째 비번
-  const [name, setName] = useState(""); //이름
+  const [id, setId] = useState("");
+  const [passWord, setPassWord] = useState("");
+  const [checkPassWord, setCheckPassWord] = useState("");
+  const [name, setName] = useState("");
 
-  //생년월일 용입니다.
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
-  //생년월일 용입니다.
   const [year, setYear] = useState(String(currentYear));
   const [month, setMonth] = useState("1");
   const [day, setDay] = useState("1");
-  //성별 용입니다.
   const [gender, setGender] = useState("남");
 
-  // ID 중복체크할때 쓰려고 만든 기능입니당 (현재 테스트용)
   const IdCheckHandle = () => {
     if (id === "test") {
       alert("이미 사용 중인 아이디입니다.");
@@ -30,19 +26,19 @@ const AccountInfo = () => {
     }
   };
 
-  // 비밀번호 2번 체크용임
   const checkPassWordBoth = () => {
     if (passWord !== checkPassWord) {
       alert("비밀번호가 다릅니다.");
       return;
     }
   };
-  // 화면에 빈칸 있는지? (아이디, 비번, 이름, 생년월일, 성별) (생년-, 성별 일단 보류- 디자인 잡고 가겠습니다.)
+
   const allCheck = () => {
     if (!id || !passWord || !name) {
       alert("빈칸이 있어요!");
     }
   };
+
   const Loging = () => {
     checkPassWordBoth();
     allCheck();
@@ -67,10 +63,12 @@ const AccountInfo = () => {
   };
   return (
     <Container>
-      <CreateAcc>
+      <LogoWrapper>
         <Mbtmi src={mbtmi} alt="MBTI Logo" />
-      </CreateAcc>
-      <CreateAcc>계정만들기</CreateAcc>
+      </LogoWrapper>
+
+      <TitleWrapper>회원가입</TitleWrapper>
+
       <SideLeft>
         <h3>아이디 입력</h3>
         <Input
@@ -81,6 +79,7 @@ const AccountInfo = () => {
         />
         <BtnSmall onClick={IdCheckHandle}>중복체크</BtnSmall>
       </SideLeft>
+
       <SideLeft>
         <h3>비밀번호 입력</h3>
         <Input
@@ -90,6 +89,7 @@ const AccountInfo = () => {
           placeholder="비밀번호를 입력해주세요"
         />
       </SideLeft>
+
       <SideLeft>
         <h3>비밀번호 재입력</h3>
         <Input
@@ -99,6 +99,7 @@ const AccountInfo = () => {
           placeholder="비밀번호를 다시한번 입력해주세요"
         />
       </SideLeft>
+
       <SideLeft>
         <div
           style={{
@@ -126,6 +127,7 @@ const AccountInfo = () => {
           placeholder="이름을 입력해주세요"
         />
       </SideLeft>
+
       <SideLeft>
         <h3>생년월일</h3>
         <Year>
@@ -133,6 +135,7 @@ const AccountInfo = () => {
           <AccountYear options={months} value={month} onChange={setMonth} />
           <AccountYear options={days} value={day} onChange={setDay} />
         </Year>
+
         <div>
           <h3>성별</h3>
           <GenderWrapper>
@@ -146,6 +149,7 @@ const AccountInfo = () => {
               />
               <span>남</span>
             </GenderLabel>
+
             <GenderLabel>
               <input
                 type="radio"
@@ -159,12 +163,16 @@ const AccountInfo = () => {
           </GenderWrapper>
         </div>
       </SideLeft>
-      <CreateAcc>
+
+      <ButtonWrapper>
         <BtnLarge onClick={Loging}>다음으로</BtnLarge>
-      </CreateAcc>
+      </ButtonWrapper>
+
+      <ButtonWrapper></ButtonWrapper>
     </Container>
   );
 };
+<<<<<<< HEAD
 const FileInput = styled.input`
   margin: 10px 0;
   width: 200px;
@@ -198,80 +206,118 @@ const GenderLabel = styled.label`
   background-color: #fff; /* 기본 배경 */
   color: black; /* 기본 글자 색 */
   transition: all 0.2s;
+=======
+>>>>>>> c284355bedce6e73cd50a69c3eddd8293a73bd04
 
-  input {
-    display: none; /* 실제 라디오 숨기기 */
-  }
-
-  span {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s;
-  }
-
-  /* 체크되었을 때 배경색과 글자색 변경 */
-  input:checked + span {
-    background-color: #a6c1ee; /* 선택 시 배경 */
-    color: white; /* 글자 색 */
-  }
-
-  /* 마우스 호버 시 살짝 강조 */
-  &:hover span {
-    background-color: #d0b9f5;
-  }
-`;
-// Container for the whole screen
-const Year = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 20px;
-`;
+/* =================== Styled Components =================== */
 const Container = styled.div`
   min-height: 100dvh;
   width: 100vw;
   overflow-x: hidden;
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  //   align-items: center;
+  padding-top: 10px;
   font-size: 10pt;
-  padding-top: 20px;
 `;
-const CreateAcc = styled.div`
+
+const LogoWrapper = styled.div`
   display: flex;
-  justify-content: center; /* 가로 중앙 */
-  align-items: center; /* 세로 중앙 */
-  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
 `;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 30px;
+
+  color: #000000;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+`;
+
 const Mbtmi = styled.img`
   width: 200px;
   height: auto;
   margin-top: 10px;
 `;
-// 사이드 래프트는 각 입력하는애들 옆으로 민것 뿐이에요
+
 const SideLeft = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0 20px;
 `;
+
 const BtnSmall = styled.button`
-  // margin-top: 10px;
-  // margin-left: 20px;
-  margin-bottom: 20px;
-  // padding-left: 20px;
-  width: 100%;
-  hight: 5px;
+ margin: 15px auto 20px auto; /* 좌우 margin auto */
+  display: block;              /* block 요소여야 auto가 적용됨 */
+  width: 220px;
+  height: 50px; /* 높이 지정해서 버튼 크기 통일 */
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
+    -6px -6px 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* 텍스트 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.3),
+      inset -4px -4px 12px rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(1px);
+  }
 `;
 
 const BtnLarge = styled.button`
-  margin-top: 30px;
-  width: 200px;
+  width: 220px;
+  height: 50px; /* 높이 지정해서 버튼 크기 통일 */
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
+    -6px -6px 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* 텍스트 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.3),
+      inset -4px -4px 12px rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(1px);
+  }
 `;
+
 const Input = styled.input`
   width: 320px;
   padding: 12px 15px;
@@ -287,4 +333,56 @@ const Input = styled.input`
     box-shadow: 0 0 8px rgba(166, 193, 238, 0.5);
   }
 `;
+
+const Year = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const GenderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;
+
+const GenderLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 40px;
+  border-radius: 6px;
+  border: 2px solid #a6c1ee;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #fff;
+  color: black;
+  transition: all 0.2s;
+
+  input {
+    display: none;
+  }
+
+  span {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+  }
+
+  input:checked + span {
+    background-color: #a6c1ee;
+    color: white;
+  }
+
+  &:hover span {
+    background-color: #d0b9f5;
+  }
+`;
+
 export default AccountInfo;

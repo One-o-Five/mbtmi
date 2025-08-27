@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Bar = styled.nav`
-    position: fixed; /* 화면 하단 고정 */
+    position: sticky; /* 화면 하단 고정 */
     left: 0;
     right: 0;
     bottom: 0;
@@ -9,6 +9,7 @@ const Bar = styled.nav`
     border-top: 1px solid #cfe8ee;
     padding: 10px 12px calc(env(safe-area-inset-bottom, 0) + 10px);
     z-index: 10;
+    width: inherit;
 `;
 
 const Row = styled.div`

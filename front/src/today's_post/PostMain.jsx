@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import AvatarImg from "../assets/img/postsample.jpeg";
+import PostImg from "../assets/img/postsample.jpeg";
 
 const PostMain = () => {
     const posts = [
@@ -17,10 +19,10 @@ const PostMain = () => {
     return (
         <Post>
             {posts.map((p) => (
-                <Card key={p.id}>
+                <PostCard key={p.id}>
                     <Header>
                         <User>
-                            <Avatar src={p.avatar} alt="" />
+                            <Avatar src={AvatarImg} alt="avatarimg" />
                             <Meta>
                                 <div className="name">
                                     <strong>{p.name}</strong>{" "}
@@ -32,7 +34,7 @@ const PostMain = () => {
                         <More aria-label="더 보기">⋯</More>
                     </Header>
 
-                    {p.image && <Photo src={p.image} alt="" />}
+                    {p.image && <Photo src={PostImg} alt="        " />}
 
                     {p.text && <Caption>{p.text}</Caption>}
 
@@ -42,7 +44,7 @@ const PostMain = () => {
                     </Actions>
 
                     <Divider />
-                </Card>
+                </PostCard>
             ))}
         </Post>
     );
@@ -54,14 +56,14 @@ const PostMain = () => {
 const Post = styled.main`
     flex: 1;
     overflow-y: auto;
-    padding: 14px 12px calc(88px + env(safe-area-inset-bottom, 0));
+    padding: -1px 12px calc(88px + env(safe-area-inset-bottom, 0));
     /* 상단 탭이 겹치면 padding-top 더 주기 */
 `;
 
-const Card = styled.article`
+const PostCard = styled.article`
     background: #d5d5d5;
     border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 6px rgba(0, 0, 0, 0.05);
     padding: 16px 14px 12px;
     width: min(560px, 100% - 20px);
     margin: 0 auto 18px;
@@ -108,6 +110,7 @@ const Meta = styled.div`
 const More = styled.button`
     appearance: none;
     border: 0;
+    padding: 0;
     background: none;
     font-size: 28px;
     line-height: 1;

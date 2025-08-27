@@ -64,3 +64,16 @@ dist-ssr
 
 
 src/main/resources/application.properties
+
+# 개인 gradle 설정 제외
+build.gradle
+settings.gradle
+gradle/wrapper/gradle-wrapper.properties
+
+# 파일 하나만 무시
+# local DB dump
+/src/db.sql
+
+# 만약 하위 폴더에 있다면 경로로 적어
+# 예: db 덤프 폴더에 있을 때
+# printf "\ndb/bd.sql\n" >> .gitignore

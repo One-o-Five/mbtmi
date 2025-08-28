@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const AccountHobby = () => {
   const navigate = useNavigate();
+
   // 활동적인 취미
   const activeHobbies = [
     "#등산",
@@ -92,7 +93,7 @@ const AccountHobby = () => {
       </Section>
 
       <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-      <NextButton onClick={() => navigate("/wantedmbti")}>다음</NextButton>
+      <NextButton onClick={() => nevigate("/wantedmbti")}>다음</NextButton>
     </Container>
   );
 };

@@ -3,12 +3,15 @@ import Account01 from "./account01";
 import Home from "../main/Home";
 import AccountLogin from "./AccountLogin";
 import { useAuth } from "../main/AuthContext";
+import MyInfo from "../setting/MyInfo";
+
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
 import AccountMbti from "./AccountMbti";
 import AccountwantedIntro from "./AccountWantedIntro";
 import AccountWantedHobby from "./AccountWantedHobby";
 import IntroduceMySelf from "./IntroduceMySelf";
+import AccountIntro from "./AccountIntro";
 
 const AccountMain = () => {
     const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -34,7 +37,9 @@ const AccountMain = () => {
             <Route path="/account01" element={<Account01 />} />
             <Route path="/home" element={<Home />} />
             <Route path="/login" element={<AccountLogin />} />
+            <Route path="/mypage" element={<MyInfo />} />
             <Route path="/info" element={<AccountInfo />} />
+            <Route path="/intro" element={<AccountIntro />} />
             <Route path="/selmbti" element={<AccountSelMbti />} />
             <Route path="/wantedmbti" element={<AccountMbti />} />
             <Route path="/wantedintro" element={<AccountwantedIntro />} />

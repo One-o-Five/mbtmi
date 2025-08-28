@@ -18,6 +18,7 @@ const MyInfo = () => {
 
     const btn = {
         edit: "프로필 수정",
+        
     };
 
     return (

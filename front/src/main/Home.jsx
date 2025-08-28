@@ -114,14 +114,14 @@ const Home = () => {
         src={logoimage}
         alt=""
         style={{ userSelect: "none", WebkitUserDrag: "none" }}
-        />
+      />
       <Card>
         {/* <ProfileImage src={profile.imageUrl} /> */}
         <ProfileImage
           src={profileimage}
           alt=""
           style={{ userSelect: "none", WebkitUserDrag: "none" }}
-          />
+        />
         <Name>
           {profile.name} ({profile.age}) / {profile.mbti}
         </Name>
@@ -136,7 +136,6 @@ const Home = () => {
           ))}
         </Btns>
       </Card>
-
     </Container>
   );
 };

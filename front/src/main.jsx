@@ -10,11 +10,11 @@ axios.defaults.baseURL = "http://localhost:8080";
 axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <AccountMain />
-      </AuthProvider>
-    </BrowserRouter>
-  </StrictMode>
+    <StrictMode>
+        <BrowserRouter>
+            <AuthProvider>
+                <AccountMain />
+            </AuthProvider>
+        </BrowserRouter>
+    </StrictMode>
 );

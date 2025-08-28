@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const AccountHobby = () => {
+const AccountWantedHobby = () => {
     const nevigate = useNavigate();
 
     // 활동적인 취미
@@ -91,9 +91,7 @@ const AccountHobby = () => {
             </Section>
 
             <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-            <NextButton onClick={() => nevigate("/wantedmbti")}>
-                다음
-            </NextButton>
+            <NextButton onClick={() => nevigate("/introduce")}>다음</NextButton>
         </Container>
     );
 };
@@ -194,4 +192,4 @@ const NextButton = styled.button`
     }
 `;
 
-export default AccountHobby;
+export default AccountWantedHobby;

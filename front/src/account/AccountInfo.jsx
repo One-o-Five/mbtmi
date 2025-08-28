@@ -2,12 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
+import { useNavigate } from "react-router-dom";
 
 const AccountInfo = () => {
   const [id, setId] = useState("");
   const [passWord, setPassWord] = useState("");
   const [checkPassWord, setCheckPassWord] = useState("");
   const [name, setName] = useState("");
+  const navigate = useNavigate();
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
@@ -29,19 +31,26 @@ const AccountInfo = () => {
   const checkPassWordBoth = () => {
     if (passWord !== checkPassWord) {
       alert("비밀번호가 다릅니다.");
-      return;
+      return false; // ❌ 불일치 → 실패
     }
+    return true; // ✅ 일치 → 성공
   };
 
   const allCheck = () => {
     if (!id || !passWord || !name) {
       alert("빈칸이 있어요!");
+      return false; // ❌ 실패
     }
+    return true; // ✅ 성공
   };
 
   const Loging = () => {
-    checkPassWordBoth();
-    allCheck();
+    const pwOk = checkPassWordBoth(); // true/false
+    const allOk = allCheck(); // true/false
+
+    if (pwOk && allOk) {
+      navigate("/AccountSelMbti"); // 조건 통과 시 이동
+    }
   };
 
   return (
@@ -186,8 +195,8 @@ const SideLeft = styled.div`
 `;
 
 const BtnSmall = styled.button`
- margin: 15px auto 20px auto; /* 좌우 margin auto */
-  display: block;              /* block 요소여야 auto가 적용됨 */
+  margin: 15px auto 20px auto; /* 좌우 margin auto */
+  display: block; /* block 요소여야 auto가 적용됨 */
   width: 220px;
   height: 50px; /* 높이 지정해서 버튼 크기 통일 */
   padding: 12px;

@@ -110,7 +110,9 @@ const AccountSelMbti = () => {
                 동의하는 것으로 간주됩니다.
             </div>
             <LineText>
-                <CheckMbtiButton>간단한 MBTI 검사</CheckMbtiButton>
+                <CheckMbtiButton onClick={() => navigate("/easymbti1")}>
+                    간단한 MBTI 검사
+                </CheckMbtiButton>
                 <CheckMbtiButton onClick={goToMbti}>
                     실제 MBTI 검사
                 </CheckMbtiButton>

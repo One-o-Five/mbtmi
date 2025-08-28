@@ -36,7 +36,7 @@ const Account01 = () => {
                 <ButtonLogin onClick={() => navigate("/login")}>
                     로그인
                 </ButtonLogin>
-                <ButtonAccount onClick={() => navigate("/lnfo")}>
+                <ButtonAccount onClick={() => navigate("/info")}>
                     회원가입
                 </ButtonAccount>
             </MainContent>

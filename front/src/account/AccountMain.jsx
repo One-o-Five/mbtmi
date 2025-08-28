@@ -36,7 +36,6 @@ const AccountMain = () => {
       <Route path="/login" element={<AccountLogin />} />
       <Route path="/mypage" element={<MyInfo />} />
 
-
       <Route path="/info" element={<AccountInfo />} />
       <Route path="/intro" element={<AccountIntro />} />
       <Route path="/selmbti" element={<AccountSelMbti />} />

@@ -42,7 +42,10 @@ const AccountMain = () => {
       <Route path="/info" element={<AccountInfo />} />
       <Route path="/intro" element={<AccountIntro />} />
       <Route path="/selmbti" element={<AccountSelMbti />} />
-      <Route path="/hobby" element={<AccountHobby />} />
+      <Route path="/wantedmbti" element={<AccountMbti />} />
+      <Route path="/wantedintro" element={<AccountwantedIntro />} />
+      <Route path="/wantedhobby" element={<AccountWantedHobby />} />
+      <Route path="/introduce" element={<IntroduceMySelf />} />
     </Routes>
   );
 };

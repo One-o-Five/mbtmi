@@ -139,7 +139,7 @@ const AccountInfo = () => {
       </SideLeft>
 
       <ButtonWrapper>
-        <BtnLarge onClick={Loging}>다음으로</BtnLarge>
+        <BtnLarge onClick={() => navigate("/selmbti")}>다음으로</BtnLarge>
       </ButtonWrapper>
 
       <ButtonWrapper></ButtonWrapper>

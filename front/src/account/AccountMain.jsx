@@ -5,6 +5,7 @@ import AccountLogin from "./AccountLogin";
 import { useAuth } from "../main/AuthContext";
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
+import AccountIntro from "./AccountIntro";
 
 const AccountMain = () => {
   const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -31,7 +32,8 @@ const AccountMain = () => {
       <Route path="/home" element={<Home />} />
       <Route path="/login" element={<AccountLogin />} />
       <Route path="/info" element={<AccountInfo />} />
-      <Route path="selmbti" element={<AccountSelMbti />} />
+      <Route path="/intro" element={<AccountIntro />} />
+      <Route path="/selmbti" element={<AccountSelMbti />} />
     </Routes>
   );
 };

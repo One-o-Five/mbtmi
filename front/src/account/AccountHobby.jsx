@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const AccountHobby = () => {
+  const navigate = useNavigate();
   // 활동적인 취미
   const activeHobbies = [
     "#등산",
@@ -19,7 +21,6 @@ const AccountHobby = () => {
     "#농구",
     "#축구",
     "#방탈출",
-    
   ];
 
   // 비활동적인 취미
@@ -91,12 +92,10 @@ const AccountHobby = () => {
       </Section>
 
       <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-      <NextButton>다음</NextButton>
+      <NextButton onClick={() => navigate("/wantedmbti")}>다음</NextButton>
     </Container>
   );
 };
-
-
 
 const Container = styled.div`
   min-height: 100dvh;

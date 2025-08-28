@@ -1,18 +1,20 @@
 import styled from "styled-components";
 import profileimage from "../assets/img/kar.jpg";
 import logoimage from "../assets/img/mbtmi.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  position: relative;
-  height: 100vh;
+  min-height: 100dvh;
+  width: 100vw;
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 50px;
-  overflow-y: hidden;
+  box-sizing: border-box;
+  flex-direction: column; /* 🔥 하단 네비 배치를 위해 세로 정렬 */
 
-  /* 파스텔톤 배경 그라데이션 */
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+  position: relative; /* 🔥 하단 네비 절대위치 기준 */
 `;
 
 const LogoImage = styled.img`
@@ -25,26 +27,18 @@ const LogoImage = styled.img`
 
 const Card = styled.div`
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   padding: 24px;
   border-radius: 20px;
-
-  /* 투명 유리 효과 */
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
-
-  /* 은은한 테두리 */
   border: 1px solid rgba(255, 255, 255, 0.4);
-
-  /* 유리 위에 빛 반사 느낌 */
   background-image: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0.4) 0%,
     rgba(255, 255, 255, 0.1) 40%,
     transparent 100%
   );
-
-  /* 그림자 (유리의 입체감) */
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: center;
@@ -92,7 +86,30 @@ const Btn = styled.span`
   font-size: 30px;
 `;
 
+/* ✅ 하단 네비게이션 */
+const BottomNav = styled.nav`
+  position: absolute; /* Container 기준 하단 고정 */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #d7f1fa;
+  border-top: 1px solid #cfe8ee;
+  padding: 10px 0 calc(env(safe-area-inset-bottom, 0) + 10px);
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const NavBtn = styled.button`
+  appearance: none;
+  border: 0;
+  background: none;
+  font-size: 24px;
+  padding: 8px 0;
+  cursor: pointer;
+`;
+
 const Home = () => {
+  const navigate = useNavigate();
   const profile = {
     name: "유지민",
     age: 26,
@@ -116,7 +133,6 @@ const Home = () => {
         style={{ userSelect: "none", WebkitUserDrag: "none" }}
       />
       <Card>
-        {/* <ProfileImage src={profile.imageUrl} /> */}
         <ProfileImage
           src={profileimage}
           alt=""
@@ -136,6 +152,15 @@ const Home = () => {
           ))}
         </Btns>
       </Card>
+
+      {/* ✅ 하단 네비 */}
+      <BottomNav>
+        <NavBtn>🏠</NavBtn>
+        <NavBtn>🔍</NavBtn>
+        <NavBtn>❤️</NavBtn>
+        <NavBtn>➕</NavBtn>
+        <NavBtn onClick={() => navigate("/mypage")} >🔔</NavBtn>
+      </BottomNav>
     </Container>
   );
 };

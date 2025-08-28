@@ -54,7 +54,24 @@ const AccountInfo = () => {
             navigate("/AccountSelMbti"); // 조건 통과 시 이동
         }
     };
+    //사진추가용
+    // 📌 프로필 이미지 상태
+    const [profileImage, setProfileImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setProfileImage(file);
+
+            // 미리보기
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     return (
         <Container>
             <LogoWrapper>
@@ -94,6 +111,25 @@ const AccountInfo = () => {
                 />
             </SideLeft>
 
+            <SideLeft>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                    <h3>프로필 사진</h3>
+                    {previewUrl && (
+                        <PreviewImage src={previewUrl} alt="미리보기" />
+                    )}
+                    <FileInput
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                    />
+                </div>
+            </SideLeft>
             <SideLeft>
                 <h3>이름 입력</h3>
                 <Input

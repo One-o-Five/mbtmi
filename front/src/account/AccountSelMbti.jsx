@@ -1,8 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import AccountYear from "./AccountYear";
+// import AccountYear from "./AccountYear";
+import { useNavigate } from "react-router-dom";
 
 const AccountSelMbti = () => {
+  const navigate = useNavigate();
+
   const [mbti, setMbti] = useState({
     EI: "", // E 또는 I
     SN: "", // S 또는 N
@@ -16,6 +19,11 @@ const AccountSelMbti = () => {
       [category]: prev[category] === value ? "" : value, // 이미 선택된 값이면 해제
     }));
   };
+
+  const goToMbti = () => {
+    (window.location = "https://www.16personalities.com/ko"), "_blank";
+  };
+
   return (
     <Container>
       <div>
@@ -93,7 +101,7 @@ const AccountSelMbti = () => {
           value={`${mbti.EI}${mbti.SN}${mbti.TF}${mbti.JP}`} // 순서대로 합치기
           readOnly // 사용자가 직접 수정하지 못하도록
         />
-        <button>다음으로</button>
+        <button onClick={() => navigate("/intro")}>다음으로</button>
       </PersonMBTI>
       <LineText>
         <hr />
@@ -108,7 +116,7 @@ const AccountSelMbti = () => {
       </div>
       <LineText>
         <CheckMbtiButton>간단한 MBTI 검사</CheckMbtiButton>
-        <CheckMbtiButton>실제 MBTI 검사</CheckMbtiButton>
+        <CheckMbtiButton onClick={goToMbti}>실제 MBTI 검사</CheckMbtiButton>
       </LineText>
     </Container>
   );

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const AccountIntro = () => {
+  const navigate = useNavigate();
+
   const tags = [
     "#활발한",
     "#차분한",
@@ -11,7 +14,7 @@ const AccountIntro = () => {
     "#즉흥적인",
     "#내향적인",
     "#외향적인",
-    "#열정적인" // 추가
+    "#열정적인", // 추가
   ];
 
   const tags1 = [
@@ -23,7 +26,7 @@ const AccountIntro = () => {
     "#허세없는",
     "#다정한",
     "#따뜻한",
-    "#센스있는" // 추가
+    "#센스있는", // 추가
   ];
 
   const tags2 = [
@@ -35,7 +38,7 @@ const AccountIntro = () => {
     "#모험적인",
     "#츤데레",
     "#얀데레",
-    "#자유로운" // 추가
+    "#자유로운", // 추가
   ];
 
   const [selectedTags, setSelectedTags] = useState([]);
@@ -96,9 +99,7 @@ const AccountIntro = () => {
         ))}
       </TagsWrapper>
 
-      <SelectedText>
-        선택된 태그: {selectedTags.join(", ")}
-      </SelectedText>
+      <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
       <NextButton>다음</NextButton>
     </Container>
   );

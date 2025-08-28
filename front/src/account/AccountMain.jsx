@@ -7,6 +7,7 @@ import MyInfo from "../setting/MyInfo";
 
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
+import AccountIntro from "./AccountIntro";
 
 const AccountMain = () => {
   const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -36,7 +37,8 @@ const AccountMain = () => {
 
 
       <Route path="/info" element={<AccountInfo />} />
-      <Route path="selmbti" element={<AccountSelMbti />} />
+      <Route path="/intro" element={<AccountIntro />} />
+      <Route path="/selmbti" element={<AccountSelMbti />} />
     </Routes>
   );
 };

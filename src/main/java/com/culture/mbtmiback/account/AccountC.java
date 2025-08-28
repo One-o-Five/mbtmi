@@ -13,10 +13,6 @@ public class AccountC {
     @Autowired
     private AccountService accountService;
 
-
-
-
-
 //    @PostMapping("/login")
 //    public AccountModel login(@RequestBody AccountModel user, HttpSession session) {
 //        System.out.println("받은 user: " + user);

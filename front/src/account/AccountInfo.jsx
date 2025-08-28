@@ -2,12 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
+import { useNavigate } from "react-router-dom";
 
 const AccountInfo = () => {
   const [id, setId] = useState("");
   const [passWord, setPassWord] = useState("");
   const [checkPassWord, setCheckPassWord] = useState("");
   const [name, setName] = useState("");
+  const navigate = useNavigate();
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
@@ -29,21 +31,45 @@ const AccountInfo = () => {
   const checkPassWordBoth = () => {
     if (passWord !== checkPassWord) {
       alert("비밀번호가 다릅니다.");
-      return;
+      return false; // ❌ 불일치 → 실패
     }
+    return true; // ✅ 일치 → 성공
   };
 
   const allCheck = () => {
     if (!id || !passWord || !name) {
       alert("빈칸이 있어요!");
+      return false; // ❌ 실패
     }
+    return true; // ✅ 성공
   };
 
   const Loging = () => {
-    checkPassWordBoth();
-    allCheck();
-  };
+    const pwOk = checkPassWordBoth(); // true/false
+    const allOk = allCheck(); // true/false
 
+    if (pwOk && allOk) {
+      navigate("/AccountSelMbti"); // 조건 통과 시 이동
+    }
+  };
+  //사진추가용
+  // 📌 프로필 이미지 상태
+  const [profileImage, setProfileImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setProfileImage(file);
+
+      // 미리보기
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <Container>
       <LogoWrapper>
@@ -83,6 +109,24 @@ const AccountInfo = () => {
         />
       </SideLeft>
 
+      <SideLeft>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h3>프로필 사진</h3>
+          {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
+          <FileInput
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
+      </SideLeft>
       <SideLeft>
         <h3>이름 입력</h3>
         <Input
@@ -137,6 +181,42 @@ const AccountInfo = () => {
     </Container>
   );
 };
+<<<<<<< HEAD
+const FileInput = styled.input`
+  margin: 10px 0;
+  width: 200px;
+  margin-left: 50px;
+`;
+
+const PreviewImage = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 10px;
+  border: 2px solid #a6c1ee;
+`;
+const GenderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;
+const GenderLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 40px;
+  border-radius: 6px; /* 아주 살짝 둥글게 */
+  border: 2px solid #a6c1ee; /* 기본 외곽선 색 */
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #fff; /* 기본 배경 */
+  color: black; /* 기본 글자 색 */
+  transition: all 0.2s;
+=======
+>>>>>>> c284355bedce6e73cd50a69c3eddd8293a73bd04
 
 /* =================== Styled Components =================== */
 const Container = styled.div`
@@ -186,8 +266,8 @@ const SideLeft = styled.div`
 `;
 
 const BtnSmall = styled.button`
- margin: 15px auto 20px auto; /* 좌우 margin auto */
-  display: block;              /* block 요소여야 auto가 적용됨 */
+  margin: 15px auto 20px auto; /* 좌우 margin auto */
+  display: block; /* block 요소여야 auto가 적용됨 */
   width: 220px;
   height: 50px; /* 높이 지정해서 버튼 크기 통일 */
   padding: 12px;

@@ -123,11 +123,6 @@ const AccountInfo = () => {
                     {previewUrl && (
                         <PreviewImage src={previewUrl} alt="미리보기" />
                     )}
-                    <FileInput
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                    />
                 </div>
             </SideLeft>
             <SideLeft>

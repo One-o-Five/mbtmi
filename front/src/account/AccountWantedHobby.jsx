@@ -91,9 +91,7 @@ const AccountWantedHobby = () => {
             </Section>
 
             <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-            <NextButton onClick={() => nevigate("/wantedmbti")}>
-                다음
-            </NextButton>
+            <NextButton onClick={() => nevigate("/introduce")}>다음</NextButton>
         </Container>
     );
 };

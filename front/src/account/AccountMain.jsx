@@ -8,6 +8,7 @@ import AccountSelMbti from "./AccountSelMbti";
 import AccountMbti from "./AccountMbti";
 import AccountwantedIntro from "./AccountWantedIntro";
 import AccountWantedHobby from "./AccountWantedHobby";
+import IntroduceMySelf from "./IntroduceMySelf";
 
 const AccountMain = () => {
     const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -38,6 +39,7 @@ const AccountMain = () => {
             <Route path="/wantedmbti" element={<AccountMbti />} />
             <Route path="/wantedintro" element={<AccountwantedIntro />} />
             <Route path="/wantedhobby" element={<AccountWantedHobby />} />
+            <Route path="/introduce" element={<IntroduceMySelf />} />
         </Routes>
     );
 };

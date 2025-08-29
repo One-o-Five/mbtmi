@@ -102,6 +102,31 @@ const AccountInfo = () => {
                 />
             </SideLeft>
 
+<<<<<<< HEAD
+      <SideLeft>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <h3>프로필 사진</h3>
+          {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
+          <input type="file" accept="image/*" onChange={handleImageChange} />
+        </div>
+      </SideLeft>
+      <SideLeft>
+        <h3>이름 입력</h3>
+        <Input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="이름을 입력해주세요"
+        />
+      </SideLeft>
+=======
             <SideLeft>
                 <h3>비밀번호 재입력</h3>
                 <Input
@@ -111,6 +136,7 @@ const AccountInfo = () => {
                     placeholder="비밀번호를 다시한번 입력해주세요"
                 />
             </SideLeft>
+>>>>>>> bc1f1c68d6c68091c8a5f404bb1c97f7d11f6b94
 
             <SideLeft>
                 <div
@@ -204,6 +230,156 @@ const Container = styled.div`
 `;
 
 const LogoWrapper = styled.div`
+<<<<<<< HEAD
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 30px;
+
+  color: #000000;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+`;
+
+const Mbtmi = styled.img`
+  width: 200px;
+  height: auto;
+  margin-top: 10px;
+`;
+
+const SideLeft = styled.div`
+  padding: 0 20px;
+`;
+
+const BtnSmall = styled.button`
+  margin: 15px auto 20px auto; /* 좌우 margin auto */
+  display: block; /* block 요소여야 auto가 적용됨 */
+  width: 220px;
+  height: 50px; /* 높이 지정해서 버튼 크기 통일 */
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
+    -6px -6px 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* 텍스트 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.3),
+      inset -4px -4px 12px rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(1px);
+  }
+`;
+
+const BtnLarge = styled.button`
+  width: 220px;
+  height: 50px; /* 높이 지정해서 버튼 크기 통일 */
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
+    -6px -6px 15px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  /* 텍스트 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    box-shadow: inset 4px 4px 12px rgba(0, 0, 0, 0.3),
+      inset -4px -4px 12px rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(1px);
+  }
+`;
+
+const Input = styled.input`
+  width: 320px;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+
+  &:focus {
+    border-color: #a6c1ee;
+    box-shadow: 0 0 8px rgba(166, 193, 238, 0.5);
+  }
+`;
+
+const Year = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const GenderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;
+
+const GenderLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 40px;
+  border-radius: 6px;
+  border: 2px solid #a6c1ee;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #fff;
+  color: black;
+  transition: all 0.2s;
+
+  input {
+    display: none;
+  }
+
+  span {
+    width: 100%;
+    height: 100%;
+=======
+>>>>>>> bc1f1c68d6c68091c8a5f404bb1c97f7d11f6b94
     display: flex;
     justify-content: center;
     align-items: center;

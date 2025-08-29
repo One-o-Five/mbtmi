@@ -1,8 +1,9 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountIntro = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
 
   const tags = [
@@ -102,6 +103,106 @@ const AccountIntro = () => {
       <NextButton onClick={() => navigate("/hobby")}>다음</NextButton>
     </Container>
   );
+=======
+    const navigate = useNavigate();
+    const { formData, setFormData } = useSignup(); // 전역 상태 가져오기
+
+    const tags = [
+        "#활발한", "#차분한", "#진지한", "#유머러스한", "#논리적인",
+        "#즉흥적인", "#내향적인", "#외향적인", "#열정적인",
+    ];
+    const tags1 = [
+        "#감정적인", "#솔직한", "#애교많은", "#쿨한", "#신중한",
+        "#허세없는", "#다정한", "#따뜻한", "#센스있는",
+    ];
+    const tags2 = [
+        "#엉뚱한", "#창의적인", "#독립적인", "#낙천적인", "#분석적인",
+        "#모험적인", "#츤데레", "#얀데레", "#자유로운",
+    ];
+
+    const toggleTag = (tag) => {
+        const selectedTags = formData.introTags || [];
+        if (selectedTags.includes(tag)) {
+            setFormData({
+                ...formData,
+                introTags: selectedTags.filter((t) => t !== tag),
+            });
+        } else {
+            if (selectedTags.length < 6) {
+                setFormData({
+                    ...formData,
+                    introTags: [...selectedTags, tag],
+                });
+            } else {
+                alert("최대 6개까지만 선택할 수 있어요!");
+            }
+        }
+    };
+
+    const selectedTags = formData.introTags || [];
+
+    return (
+        <Container>
+            <Title>당신을 소개해주세요!</Title>
+            <TagTag>최대 6개 선택 가능합니다.</TagTag>
+
+            <TagTitle>---------- 성격 · 태도 ----------</TagTitle>
+            <TagsWrapper>
+                {tags.map((tag) => (
+                    <TagButton
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        selected={selectedTags.includes(tag)}
+                    >
+                        {tag}
+                    </TagButton>
+                ))}
+            </TagsWrapper>
+
+            <TagTitle>---------- 감정 · 표현 ----------</TagTitle>
+            <TagsWrapper>
+                {tags1.map((tag) => (
+                    <TagButton
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        selected={selectedTags.includes(tag)}
+                    >
+                        {tag}
+                    </TagButton>
+                ))}
+            </TagsWrapper>
+
+            <TagTitle>---------- 독특한 매력 ----------</TagTitle>
+            <TagsWrapper>
+                {tags2.map((tag) => (
+                    <TagButton
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        selected={selectedTags.includes(tag)}
+                    >
+                        {tag}
+                    </TagButton>
+                ))}
+            </TagsWrapper>
+
+            <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
+
+            {/* ✅ 선택 최소 1개 이상이어야 다음으로 가능 */}
+            {/* <NextButton
+                disabled={selectedTags.length === 0}
+                onClick={() => navigate("/hobby")}
+            >
+                다음
+            </NextButton> */}
+            <NextButton
+                disabled={selectedTags.length === 0}
+                onClick={() => navigate("/summary")}
+            >
+                다음
+            </NextButton>
+        </Container>
+    );
+>>>>>>> bc1f1c68d6c68091c8a5f404bb1c97f7d11f6b94
 };
 
 const Container = styled.div`

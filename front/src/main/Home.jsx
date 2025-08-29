@@ -15,6 +15,7 @@ const Container = styled.div`
 
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
   position: relative; /* 🔥 하단 네비 절대위치 기준 */
+  padding-top: 60px
 `;
 
 const LogoImage = styled.img`
@@ -46,6 +47,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+    margin-bottom: 80px; 
 `;
 
 const ProfileImage = styled.img`
@@ -88,24 +90,40 @@ const Btn = styled.span`
 
 /* ✅ 하단 네비게이션 */
 const BottomNav = styled.nav`
-  position: absolute; /* Container 기준 하단 고정 */
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #d7f1fa;
-  border-top: 1px solid #cfe8ee;
-  padding: 10px 0 calc(env(safe-area-inset-bottom, 0) + 10px);
+  background: #ecf0f3; /* 밝은 회색톤 */
+  padding: 12px 0 calc(env(safe-area-inset-bottom, 0) + 12px);
+
   display: flex;
   justify-content: space-evenly;
+
+  border-radius: 20px 20px 0 0; /* 위쪽만 둥글게 */
+  box-shadow: inset 4px 4px 8px #d1d9e6,
+              inset -4px -4px 8px #ffffff; /* 뉴모피즘 음각 효과 */
 `;
 
 const NavBtn = styled.button`
   appearance: none;
-  border: 0;
-  background: none;
+  border: none;
+  background: #ecf0f3;
   font-size: 24px;
-  padding: 8px 0;
+  padding: 10px;
+  border-radius: 16px;
   cursor: pointer;
+
+  /* 뉴모피즘 버튼 */
+  box-shadow: 4px 4px 8px #d1d9e6,
+              -4px -4px 8px #ffffff;
+  transition: all 0.2s ease;
+
+  &:active {
+    box-shadow: inset 4px 4px 8px #d1d9e6,
+                inset -4px -4px 8px #ffffff; /* 눌림 효과 */
+    transform: scale(0.95);
+  }
 `;
 
 const Home = () => {

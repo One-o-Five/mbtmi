@@ -36,7 +36,7 @@ const Account01 = () => {
             <Mbtmi src={mbtmi} alt="MBTI Logo" />
           </div>
           <ButtonLogin onClick={() => navigate("/login")}>로그인</ButtonLogin>
-          <ButtonAccount onClick={() => navigate("/lnfo")}>
+          <ButtonAccount onClick={() => navigate("/Info")}>
             회원가입
           </ButtonAccount>
         </>

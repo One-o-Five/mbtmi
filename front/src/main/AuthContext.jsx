@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, setUser } from "react";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8080"; // <-- 반드시 localhost로 통일
@@ -38,7 +38,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (id, password) => {
     try {
-      const res = await axios.post("/api/login", { username: id, password }, { withCredentials: true });
+      const res = await axios.post(
+        "/api/login",
+        { username: id, password },
+        { withCredentials: true }
+      );
       console.log("login response:", res);
       if (res.data) {
         setLoggedIn(true);
@@ -64,7 +68,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, user, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ loggedIn, user, login, logout, loading, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

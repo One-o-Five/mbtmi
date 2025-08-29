@@ -1,59 +1,44 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountIntro = () => {
     const navigate = useNavigate();
+    const { formData, setFormData } = useSignup(); // 전역 상태 가져오기
 
     const tags = [
-        "#활발한",
-        "#차분한",
-        "#진지한",
-        "#유머러스한",
-        "#논리적인",
-        "#즉흥적인",
-        "#내향적인",
-        "#외향적인",
-        "#열정적인", // 추가
+        "#활발한", "#차분한", "#진지한", "#유머러스한", "#논리적인",
+        "#즉흥적인", "#내향적인", "#외향적인", "#열정적인",
     ];
-
     const tags1 = [
-        "#감정적인",
-        "#솔직한",
-        "#애교많은",
-        "#쿨한",
-        "#신중한",
-        "#허세없는",
-        "#다정한",
-        "#따뜻한",
-        "#센스있는", // 추가
+        "#감정적인", "#솔직한", "#애교많은", "#쿨한", "#신중한",
+        "#허세없는", "#다정한", "#따뜻한", "#센스있는",
     ];
-
     const tags2 = [
-        "#엉뚱한",
-        "#창의적인",
-        "#독립적인",
-        "#낙천적인",
-        "#분석적인",
-        "#모험적인",
-        "#츤데레",
-        "#얀데레",
-        "#자유로운", // 추가
+        "#엉뚱한", "#창의적인", "#독립적인", "#낙천적인", "#분석적인",
+        "#모험적인", "#츤데레", "#얀데레", "#자유로운",
     ];
-
-    const [selectedTags, setSelectedTags] = useState([]);
 
     const toggleTag = (tag) => {
+        const selectedTags = formData.introTags || [];
         if (selectedTags.includes(tag)) {
-            setSelectedTags(selectedTags.filter((t) => t !== tag));
+            setFormData({
+                ...formData,
+                introTags: selectedTags.filter((t) => t !== tag),
+            });
         } else {
             if (selectedTags.length < 6) {
-                setSelectedTags([...selectedTags, tag]);
+                setFormData({
+                    ...formData,
+                    introTags: [...selectedTags, tag],
+                });
             } else {
                 alert("최대 6개까지만 선택할 수 있어요!");
             }
         }
     };
+
+    const selectedTags = formData.introTags || [];
 
     return (
         <Container>
@@ -66,7 +51,8 @@ const AccountIntro = () => {
                     <TagButton
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        selected={selectedTags.includes(tag)}>
+                        selected={selectedTags.includes(tag)}
+                    >
                         {tag}
                     </TagButton>
                 ))}
@@ -78,7 +64,8 @@ const AccountIntro = () => {
                     <TagButton
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        selected={selectedTags.includes(tag)}>
+                        selected={selectedTags.includes(tag)}
+                    >
                         {tag}
                     </TagButton>
                 ))}
@@ -90,14 +77,28 @@ const AccountIntro = () => {
                     <TagButton
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        selected={selectedTags.includes(tag)}>
+                        selected={selectedTags.includes(tag)}
+                    >
                         {tag}
                     </TagButton>
                 ))}
             </TagsWrapper>
 
             <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
-            <NextButton onClick={() => navigate("/hobby")}>다음</NextButton>
+
+            {/* ✅ 선택 최소 1개 이상이어야 다음으로 가능 */}
+            {/* <NextButton
+                disabled={selectedTags.length === 0}
+                onClick={() => navigate("/hobby")}
+            >
+                다음
+            </NextButton> */}
+            <NextButton
+                disabled={selectedTags.length === 0}
+                onClick={() => navigate("/summary")}
+            >
+                다음
+            </NextButton>
         </Container>
     );
 };

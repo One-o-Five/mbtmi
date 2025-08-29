@@ -13,39 +13,6 @@ public class AccountC {
     @Autowired
     private AccountService accountService;
 
-//    @PostMapping("/login")
-//    public AccountModel login(@RequestBody AccountModel user, HttpSession session) {
-//        System.out.println("받은 user: " + user);
-//        if (user == null || user.getUsername() == null || user.getPassword() == null) {
-//            System.out.println("username 또는 password 없음");
-//            return null;
-//        }
-//
-//        AccountModel loginUser = accountService.login(user.getUsername(), user.getPassword());
-//        System.out.println("로그인 결과: " + loginUser);
-//        if (loginUser != null) {
-//            session.setAttribute("user", loginUser);
-//            return loginUser;
-//        }
-//        return null;
-//    }
-//
-//    // ✅ 세션 확인 엔드포인트 추가
-//    @GetMapping("/check-session")
-//    public Map<String, Object> checkSession(HttpSession session) {
-//        Map<String, Object> result = new HashMap<>();
-//        AccountModel user = (AccountModel) session.getAttribute("user");
-//
-//        if (user != null) {
-//            result.put("loggedIn", true);
-//            result.put("user", user);
-//        } else {
-//            result.put("loggedIn", false);
-//        }
-//        return result;
-//    }
-
-
     @PostMapping("/login")
     public AccountModel login(@RequestBody AccountModel user, HttpSession session) {
         System.out.println("받은 user: " + user);
@@ -73,7 +40,20 @@ public class AccountC {
         return result;
     }
 
-
+    @GetMapping("/logout")
+    public Map<String, Object> logout(HttpSession session) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            session.invalidate(); // 세션 제거
+            result.put("loggedIn", false);
+            result.put("message", "로그아웃 성공");
+        } catch (IllegalStateException e) {
+            // 세션이 이미 만료된 경우
+            result.put("loggedIn", false);
+            result.put("message", "세션 없음");
+        }
+        return result;
+    }
 
 
 

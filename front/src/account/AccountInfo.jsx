@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
-import { useNavigate } from "react-router-dom";
 
 const AccountInfo = () => {
     const [id, setId] = useState("");

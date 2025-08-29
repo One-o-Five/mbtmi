@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 // import AccountYear from "./AccountYear";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "./SignupContext";
 
 const AccountSelMbti = () => {
+    const { form, setForm } = useSignup();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log("signup form:", form);
+    }, [form]);
 
     const [mbti, setMbti] = useState({
         EI: "", // E 또는 I

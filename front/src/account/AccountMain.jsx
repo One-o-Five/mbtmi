@@ -27,6 +27,7 @@ import EasyMbti10 from "../easyMbtiTest/EasyMbti10";
 import EasyMbti11 from "../easyMbtiTest/EasyMbti11";
 import EasyMbti12 from "../easyMbtiTest/EasyMbti12";
 import ResultMbti from "../easyMbtiTest/ResultMbti";
+import { SignupProvider } from "./SignupContext";
 
 const AccountMain = () => {
     const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -37,140 +38,142 @@ const AccountMain = () => {
     }
 
     return (
-        <Routes>
-            {/* / 접속 시 로그인 여부에 따라 리다이렉트 */}
-            <Route
-                path="/"
-                element={
-                    loggedIn ? (
-                        <Navigate to="/home" replace />
-                    ) : (
-                        <Navigate to="/account01" replace />
-                    )
-                }
-            />
-            <Route path="/account01" element={<Account01 />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<AccountLogin />} />
-            <Route path="/mypage" element={<MyInfo />} />
+        <SignupProvider>
+            <Routes>
+                {/* / 접속 시 로그인 여부에 따라 리다이렉트 */}
+                <Route
+                    path="/"
+                    element={
+                        loggedIn ? (
+                            <Navigate to="/home" replace />
+                        ) : (
+                            <Navigate to="/account01" replace />
+                        )
+                    }
+                />
+                <Route path="/account01" element={<Account01 />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/login" element={<AccountLogin />} />
+                <Route path="/mypage" element={<MyInfo />} />
 
-            {/* 회원가입 */}
-            <Route path="/info" element={<AccountInfo />} />
-            <Route path="/intro" element={<AccountIntro />} />
-            <Route path="/hobby" element={<AccountHobby />} />
-            <Route path="/selmbti" element={<AccountSelMbti />} />
-            <Route path="/wantedmbti" element={<AccountMbti />} />
-            <Route path="/wantedintro" element={<AccountwantedIntro />} />
-            <Route path="/wantedhobby" element={<AccountWantedHobby />} />
-            <Route path="/introduce" element={<IntroduceMySelf />} />
+                {/* 회원가입 */}
+                <Route path="/info" element={<AccountInfo />} />
+                <Route path="/intro" element={<AccountIntro />} />
+                <Route path="/hobby" element={<AccountHobby />} />
+                <Route path="/selmbti" element={<AccountSelMbti />} />
+                <Route path="/wantedmbti" element={<AccountMbti />} />
+                <Route path="/wantedintro" element={<AccountwantedIntro />} />
+                <Route path="/wantedhobby" element={<AccountWantedHobby />} />
+                <Route path="/introduce" element={<IntroduceMySelf />} />
 
-            {/* 간단한 MBTI */}
+                {/* 간단한 MBTI */}
 
-            <Route
-                path="/easymbti1"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti1 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti2"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti2 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti3"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti3 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti4"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti4 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti5"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti5 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti6"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti6 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti7"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti7 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti8"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti8 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti9"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti9 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti10"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti10 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti11"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti11 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/easymbti12"
-                element={
-                    <MbtiProvider>
-                        <EasyMbti12 />
-                    </MbtiProvider>
-                }
-            />
-            <Route
-                path="/resultmbti"
-                element={
-                    <MbtiProvider>
-                        <ResultMbti />
-                    </MbtiProvider>
-                }
-            />
-        </Routes>
+                <Route
+                    path="/easymbti1"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti1 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti2"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti2 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti3"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti3 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti4"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti4 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti5"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti5 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti6"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti6 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti7"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti7 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti8"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti8 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti9"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti9 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti10"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti10 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti11"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti11 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/easymbti12"
+                    element={
+                        <MbtiProvider>
+                            <EasyMbti12 />
+                        </MbtiProvider>
+                    }
+                />
+                <Route
+                    path="/resultmbti"
+                    element={
+                        <MbtiProvider>
+                            <ResultMbti />
+                        </MbtiProvider>
+                    }
+                />
+            </Routes>
+        </SignupProvider>
     );
 };
 

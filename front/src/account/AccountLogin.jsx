@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../main/AuthContext";
-
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+import GLogin from "./socialLogin/GLogin";
 const AccountLogin = () => {
   const [idVal, setIdVal] = useState("");
   const [idValid, setIdValid] = useState(false);
@@ -61,7 +63,7 @@ const AccountLogin = () => {
         로그인
       </ButtonNeumorphism>
       <Divider>------------------- 또는 -------------------</Divider>
-      <ButtonNeumorphism>카카오톡 계정으로 로그인</ButtonNeumorphism>
+      <GLogin></GLogin>
     </Container>
   );
 };

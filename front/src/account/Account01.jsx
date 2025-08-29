@@ -30,6 +30,35 @@ const Account01 = () => {
                 </CloudOverlay>
             )}
 
+<<<<<<< HEAD
+  return (
+    <Container>
+      {showClouds && (
+        <CloudOverlay>
+          <Cloud />
+          <Cloud />
+          <Cloud />
+          <Cloud />
+        </CloudOverlay>
+      )}
+
+      {!showClouds && (
+        <>
+          <div>
+            <Logo src={mainLogo} alt="Main Logo" />
+          </div>
+          <div>
+            <Mbtmi src={mbtmi} alt="MBTI Logo" />
+          </div>
+          <ButtonLogin onClick={() => navigate("/login")}>로그인</ButtonLogin>
+          <ButtonAccount onClick={() => navigate("/Info")}>
+            회원가입
+          </ButtonAccount>
+        </>
+      )}
+    </Container>
+  );
+=======
             <MainContent $visible={!showClouds}>
                 <Logo src={mainLogo} alt="Main Logo" />
                 <Mbtmi src={mbtmi} alt="MBTI Logo" />
@@ -42,6 +71,7 @@ const Account01 = () => {
             </MainContent>
         </Container>
     );
+>>>>>>> bc1f1c68d6c68091c8a5f404bb1c97f7d11f6b94
 };
 
 const fadeOut = keyframes`

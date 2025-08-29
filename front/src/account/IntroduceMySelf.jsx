@@ -1,9 +1,11 @@
 import React, { use } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const IntroduceMySelf = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Card>
@@ -24,7 +26,7 @@ const IntroduceMySelf = () => {
           placeholder="자기소개를 적어주세요 (최대 300자)"
           maxLength={300}
         />
-        <NextButton onClick={() => navigate("/Info")}>작성완료</NextButton>
+        <NextButton onClick={() => navigate("/account01")}>작성완료</NextButton>
       </Card>
     </Container>
   );

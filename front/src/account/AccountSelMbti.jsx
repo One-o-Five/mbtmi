@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-// import AccountYear from "./AccountYear";
 import { useNavigate } from "react-router-dom";
-import { useSignup } from "./SignupContext";
+import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountSelMbti = () => {
     const { form, setForm } = useSignup();
     const navigate = useNavigate();
+    const { formData, setFormData } = useSignup(); // ✅ 전역 상태 가져오기
 
     useEffect(() => {
         console.log("signup form:", form);
@@ -20,28 +20,38 @@ const AccountSelMbti = () => {
     });
     // MBTI 선택 핸들러
     const handleMbtiSelect = (category, value) => {
-        setMbti((prev) => ({
+        setFormData((prev) => ({
             ...prev,
-            [category]: prev[category] === value ? "" : value, // 이미 선택된 값이면 해제
+            mbti: {
+                ...prev.mbti,
+                [category]: prev.mbti[category] === value ? "" : value, // 토글
+            },
         }));
     };
 
     const goToMbti = () => {
-        (window.location = "https://www.16personalities.com/ko"), "_blank";
+        window.open("https://www.16personalities.com/ko", "_blank");
     };
+
+    // ✅ MBTI 4자리 모두 선택했는지 체크
+    const isMbtiComplete =
+        formData.mbti.EI &&
+        formData.mbti.SN &&
+        formData.mbti.TF &&
+        formData.mbti.JP;
 
     return (
         <Container>
             <div>
-                <Title>MBIT를 입력하세요</Title>
+                <Title>MBTI를 입력하세요</Title>
                 <Mbti>
                     <MbtiIn
-                        selected={mbti.EI === "E"}
+                        selected={formData.mbti.EI === "E"}
                         onClick={() => handleMbtiSelect("EI", "E")}>
                         E
                     </MbtiIn>
                     <MbtiIn
-                        selected={mbti.EI === "I"}
+                        selected={formData.mbti.EI === "I"}
                         onClick={() => handleMbtiSelect("EI", "I")}>
                         I
                     </MbtiIn>
@@ -49,40 +59,38 @@ const AccountSelMbti = () => {
 
                 <Mbti>
                     <MbtiIn
-                        selected={mbti.SN === "S"}
+                        selected={formData.mbti.SN === "S"}
                         onClick={() => handleMbtiSelect("SN", "S")}>
                         S
                     </MbtiIn>
                     <MbtiIn
-                        selected={mbti.SN === "N"}
+                        selected={formData.mbti.SN === "N"}
                         onClick={() => handleMbtiSelect("SN", "N")}>
                         N
                     </MbtiIn>
                 </Mbti>
 
-                {/* T/F */}
                 <Mbti>
                     <MbtiIn
-                        selected={mbti.TF === "T"}
+                        selected={formData.mbti.TF === "T"}
                         onClick={() => handleMbtiSelect("TF", "T")}>
                         T
                     </MbtiIn>
                     <MbtiIn
-                        selected={mbti.TF === "F"}
+                        selected={formData.mbti.TF === "F"}
                         onClick={() => handleMbtiSelect("TF", "F")}>
                         F
                     </MbtiIn>
                 </Mbti>
 
-                {/* J/P */}
                 <Mbti>
                     <MbtiIn
-                        selected={mbti.JP === "J"}
+                        selected={formData.mbti.JP === "J"}
                         onClick={() => handleMbtiSelect("JP", "J")}>
                         J
                     </MbtiIn>
                     <MbtiIn
-                        selected={mbti.JP === "P"}
+                        selected={formData.mbti.JP === "P"}
                         onClick={() => handleMbtiSelect("JP", "P")}>
                         P
                     </MbtiIn>
@@ -96,10 +104,14 @@ const AccountSelMbti = () => {
             <PersonMBTI>
                 <Input
                     type="text"
-                    value={`${mbti.EI}${mbti.SN}${mbti.TF}${mbti.JP}`} // 순서대로 합치기
-                    readOnly // 사용자가 직접 수정하지 못하도록
+                    value={`${formData.mbti.EI}${formData.mbti.SN}${formData.mbti.TF}${formData.mbti.JP}`}
+                    readOnly
                 />
-                <button onClick={() => navigate("/intro")}>다음으로</button>
+                <button
+                    disabled={!isMbtiComplete} // ✅ MBTI 선택 안 하면 비활성화
+                    onClick={() => navigate("/intro")}>
+                    다음으로
+                </button>
             </PersonMBTI>
             <LineText>
                 <hr />
@@ -126,7 +138,8 @@ const AccountSelMbti = () => {
         </Container>
     );
 };
-//MBTI 검사 버튼 스타일
+
+// ===== 스타일 부분은 기존 그대로 =====
 const CheckMbtiButton = styled.button`
     width: 160px;
     margin-left: 10px;
@@ -140,7 +153,7 @@ const CheckMbtiButton = styled.button`
     background: rgba(255, 255, 255, 0.08);
     color: #fff;
     box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
-        /* 바깥쪽 그림자 */ -6px -6px 15px rgba(255, 255, 255, 0.1); /* 하이라이트 */
+        -6px -6px 15px rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(6px);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -161,11 +174,11 @@ const PersonMBTI = styled.div`
     font-size: 20px;
     input,
     button {
-        height: 50px; /* 높이를 동일하게 */
-        font-size: 18px; /* 글자 크기 맞춤 */
+        height: 50px;
+        font-size: 18px;
         border-radius: 10px;
         border: 1px solid #ccc;
-        padding: 0 15px; /* 내부 여백 */
+        padding: 0 15px;
         box-sizing: border-box;
     }
 
@@ -178,24 +191,25 @@ const PersonMBTI = styled.div`
         &:hover {
             background-color: #6b90d9;
         }
+        &:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
     }
 `;
-
 const Title = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px 0 20px;
     font-size: 25px;
-    font-weight: bold; /* 수정 */
+    font-weight: bold;
 `;
-
 const Mbti = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
 `;
-// MBTI 박스 스타일
 const MbtiIn = styled.div`
     margin: 20px;
     display: flex;
@@ -216,8 +230,6 @@ const MbtiIn = styled.div`
             props.selected ? "#a6c1ee" : "#e0e0e0"};
     }
 `;
-
-// 줄긋기
 const LineText = styled.div`
     display: flex;
     align-items: center;
@@ -235,7 +247,6 @@ const LineText = styled.div`
         color: #555;
     }
 `;
-//배경
 const Container = styled.div`
     min-height: 100dvh;
     width: 100vw;
@@ -245,7 +256,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    // align-items: center;
     font-size: 10pt;
     padding-top: 20px;
 `;

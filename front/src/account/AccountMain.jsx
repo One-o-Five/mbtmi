@@ -4,6 +4,7 @@ import Home from "../main/Home";
 import AccountLogin from "./AccountLogin";
 import { useAuth } from "../main/AuthContext";
 import MyInfo from "../setting/MyInfo";
+import { SignupProvider } from "../SignupProvider";
 
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
@@ -28,6 +29,8 @@ import EasyMbti11 from "../easyMbtiTest/EasyMbti11";
 import EasyMbti12 from "../easyMbtiTest/EasyMbti12";
 import ResultMbti from "../easyMbtiTest/ResultMbti";
 import { SignupProvider } from "./SignupContext";
+import Mymbit from "../setting/MyMbit";
+import Summary from "./Summary";
 
 const AccountMain = () => {
     const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -36,6 +39,12 @@ const AccountMain = () => {
     if (loading) {
         return null; // 원하면 로딩 스피너를 넣어도 됩니다
     }
+
+    const PrivateRoute = ({ element }) => {
+        const { loggedIn, loading } = useAuth();
+        if (loading) return null;
+        return loggedIn ? element : <Navigate to="/account01" replace />;
+    };
 
     return (
         <SignupProvider>
@@ -54,7 +63,16 @@ const AccountMain = () => {
                 <Route path="/account01" element={<Account01 />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/login" element={<AccountLogin />} />
-                <Route path="/mypage" element={<MyInfo />} />
+                <Route
+                    path="/mypage"
+                    element={<PrivateRoute element={<MyInfo />} />}
+                />
+                <Route
+                    path="/mypage/mymbti"
+                    element={<PrivateRoute element={<Mymbit />} />}
+                />
+
+                <Route path="/summary" element={<Summary />} />
 
                 {/* 회원가입 */}
                 <Route path="/info" element={<AccountInfo />} />

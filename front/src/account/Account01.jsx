@@ -18,27 +18,30 @@ const Account01 = () => {
     };
   }, []);
 
-  return (
-    <Container>
-      {showClouds && (
-        <CloudOverlay style={{ display: cloudsVisible ? "block" : "none" }}>
-          <Cloud />
-          <Cloud />
-          <Cloud />
-          <Cloud />
-        </CloudOverlay>
-      )}
+    return (
+        <Container>
+            {showClouds && (
+                <CloudOverlay
+                    style={{ display: cloudsVisible ? "block" : "none" }}>
+                    <Cloud />
+                    <Cloud />
+                    <Cloud />
+                    <Cloud />
+                </CloudOverlay>
+            )}
 
-      <MainContent $visible={!showClouds}>
-        <Logo src={mainLogo} alt="Main Logo" />
-        <Mbtmi src={mbtmi} alt="MBTI Logo" />
-        <ButtonLogin onClick={() => navigate("/login")}>로그인</ButtonLogin>
-        <ButtonAccount onClick={() => navigate("/info")}>
-          회원가입
-        </ButtonAccount>
-      </MainContent>
-    </Container>
-  );
+            <MainContent $visible={!showClouds}>
+                <Logo src={mainLogo} alt="Main Logo" />
+                <Mbtmi src={mbtmi} alt="MBTI Logo" />
+                <ButtonLogin onClick={() => navigate("/login")}>
+                    로그인
+                </ButtonLogin>
+                <ButtonAccount onClick={() => navigate("/info")}>
+                    회원가입
+                </ButtonAccount>
+            </MainContent>
+        </Container>
+    );
 };
 
 const fadeOut = keyframes`

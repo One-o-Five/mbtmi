@@ -1,7 +1,10 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
+
 
 const SignupContext = createContext();
 export const useSignup = () => useContext(SignupContext);
+
+
 
 export const SignupProvider = ({ children }) => {
   const [formData, setFormData] = useState({

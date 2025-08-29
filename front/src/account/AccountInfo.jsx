@@ -2,14 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
-import { useNavigate } from "react-router-dom";
 
 const AccountInfo = () => {
   const [id, setId] = useState("");
   const [passWord, setPassWord] = useState("");
   const [checkPassWord, setCheckPassWord] = useState("");
   const [name, setName] = useState("");
-  const navigate = useNavigate();
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
@@ -31,26 +29,19 @@ const AccountInfo = () => {
   const checkPassWordBoth = () => {
     if (passWord !== checkPassWord) {
       alert("비밀번호가 다릅니다.");
-      return false; // ❌ 불일치 → 실패
+      return;
     }
-    return true; // ✅ 일치 → 성공
   };
 
   const allCheck = () => {
     if (!id || !passWord || !name) {
       alert("빈칸이 있어요!");
-      return false; // ❌ 실패
     }
-    return true; // ✅ 성공
   };
 
   const Loging = () => {
-    const pwOk = checkPassWordBoth(); // true/false
-    const allOk = allCheck(); // true/false
-
-    if (pwOk && allOk) {
-      navigate("/AccountSelMbti"); // 조건 통과 시 이동
-    }
+    checkPassWordBoth();
+    allCheck();
   };
   //사진추가용
   // 📌 프로필 이미지 상태
@@ -174,49 +165,13 @@ const AccountInfo = () => {
       </SideLeft>
 
       <ButtonWrapper>
-        <BtnLarge onClick={() => navigate("/selmbti")}>다음으로</BtnLarge>
+        <BtnLarge onClick={Loging}>다음으로</BtnLarge>
       </ButtonWrapper>
 
       <ButtonWrapper></ButtonWrapper>
     </Container>
   );
 };
-<<<<<<< HEAD
-const FileInput = styled.input`
-  margin: 10px 0;
-  width: 200px;
-  margin-left: 50px;
-`;
-
-const PreviewImage = styled.img`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-top: 10px;
-  border: 2px solid #a6c1ee;
-`;
-const GenderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-`;
-const GenderLabel = styled.label`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80px;
-  height: 40px;
-  border-radius: 6px; /* 아주 살짝 둥글게 */
-  border: 2px solid #a6c1ee; /* 기본 외곽선 색 */
-  cursor: pointer;
-  font-weight: bold;
-  background-color: #fff; /* 기본 배경 */
-  color: black; /* 기본 글자 색 */
-  transition: all 0.2s;
-=======
->>>>>>> c284355bedce6e73cd50a69c3eddd8293a73bd04
 
 /* =================== Styled Components =================== */
 const Container = styled.div`

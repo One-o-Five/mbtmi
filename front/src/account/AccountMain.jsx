@@ -8,6 +8,7 @@ import MyInfo from "../setting/MyInfo";
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
 import AccountIntro from "./AccountIntro";
+import Mymbit from "../setting/MyMbit";
 
 const AccountMain = () => {
   const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -16,6 +17,12 @@ const AccountMain = () => {
   if (loading) {
     return null; // 원하면 로딩 스피너를 넣어도 됩니다
   }
+
+  const PrivateRoute = ({ element }) => {
+    const { loggedIn, loading } = useAuth();
+    if (loading) return null;
+    return loggedIn ? element : <Navigate to="/account01" replace />;
+  };
 
   return (
     <Routes>
@@ -33,8 +40,10 @@ const AccountMain = () => {
       <Route path="/account01" element={<Account01 />} />
       <Route path="/home" element={<Home />} />
       <Route path="/login" element={<AccountLogin />} />
-      <Route path="/mypage" element={<MyInfo />} />
 
+      <Route path="/mypage" element={<PrivateRoute element={<MyInfo />} />} />
+      <Route path="/mypage/mymbti" element={<PrivateRoute element={<Mymbit />} />} />
+     
 
       <Route path="/info" element={<AccountInfo />} />
       <Route path="/intro" element={<AccountIntro />} />

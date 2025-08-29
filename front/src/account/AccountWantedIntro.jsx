@@ -1,46 +1,43 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
-const AccountHobby = () => {
+const AccountwantedIntro = () => {
     const nevigate = useNavigate();
-
-    // 활동적인 취미
-    const activeHobbies = [
-        "#등산",
-        "#여행",
-        "#자전거",
-        "#러닝",
-        "#댄스",
-        "#수영",
-        "#헬스",
-        "#볼링",
-        "#스포츠관람",
-        "#캠핑",
-        "#서핑",
-        "#클라이밍",
-        "#농구",
-        "#축구",
-        "#방탈출",
+    const tags = [
+        "#활발한",
+        "#차분한",
+        "#진지한",
+        "#유머러스한",
+        "#논리적인",
+        "#즉흥적인",
+        "#내향적인",
+        "#외향적인",
+        "#열정적인", // 추가
     ];
 
-    // 비활동적인 취미
-    const passiveHobbies = [
-        "#영화보기",
-        "#드라마",
-        "#넷플릭스",
-        "#유튜브",
-        "#독서",
-        "#요리하기",
-        "#베이킹",
-        "#악기연주",
-        "#사진찍기",
-        "#보드게임",
-        "#명상",
-        "#그림그리기",
-        "#수다",
-        "#멍때리기",
-        "#산책하기",
+    const tags1 = [
+        "#감정적인",
+        "#솔직한",
+        "#애교많은",
+        "#쿨한",
+        "#신중한",
+        "#허세없는",
+        "#다정한",
+        "#따뜻한",
+        "#센스있는", // 추가
+    ];
+
+    const tags2 = [
+        "#엉뚱한",
+        "#창의적인",
+        "#독립적인",
+        "#낙천적인",
+        "#분석적인",
+        "#모험적인",
+        "#츤데레",
+        "#얀데레",
+        "#자유로운", // 추가
     ];
 
     const [selectedTags, setSelectedTags] = useState([]);
@@ -59,39 +56,47 @@ const AccountHobby = () => {
 
     return (
         <Container>
-            <Title>당신의 취미를 선택해주세요!</Title>
+            <Title>당신이 원하는 상대는?</Title>
             <TagTag>최대 6개 선택 가능합니다.</TagTag>
 
-            <Section>
-                <TagTitle>🌟 밖에서 즐기는</TagTitle>
-                <TagsWrapper>
-                    {activeHobbies.map((tag) => (
-                        <TagButton
-                            key={tag}
-                            onClick={() => toggleTag(tag)}
-                            selected={selectedTags.includes(tag)}>
-                            {tag}
-                        </TagButton>
-                    ))}
-                </TagsWrapper>
-            </Section>
+            <TagTitle>---------- 성격 · 태도 ----------</TagTitle>
+            <TagsWrapper>
+                {tags.map((tag) => (
+                    <TagButton
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        selected={selectedTags.includes(tag)}>
+                        {tag}
+                    </TagButton>
+                ))}
+            </TagsWrapper>
 
-            <Section>
-                <TagTitle>🏡 집에서 즐기는</TagTitle>
-                <TagsWrapper>
-                    {passiveHobbies.map((tag) => (
-                        <TagButton
-                            key={tag}
-                            onClick={() => toggleTag(tag)}
-                            selected={selectedTags.includes(tag)}>
-                            {tag}
-                        </TagButton>
-                    ))}
-                </TagsWrapper>
-            </Section>
+            <TagTitle>---------- 감정 · 표현 ----------</TagTitle>
+            <TagsWrapper>
+                {tags1.map((tag) => (
+                    <TagButton
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        selected={selectedTags.includes(tag)}>
+                        {tag}
+                    </TagButton>
+                ))}
+            </TagsWrapper>
 
-            <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-            <NextButton onClick={() => nevigate("/wantedmbti")}>
+            <TagTitle>---------- 독특한 매력 ----------</TagTitle>
+            <TagsWrapper>
+                {tags2.map((tag) => (
+                    <TagButton
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        selected={selectedTags.includes(tag)}>
+                        {tag}
+                    </TagButton>
+                ))}
+            </TagsWrapper>
+
+            <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
+            <NextButton onClick={() => nevigate("/wantedhobby")}>
                 다음
             </NextButton>
         </Container>
@@ -117,32 +122,27 @@ const Title = styled.h1`
 
 const TagTag = styled.div`
     font-size: 15px;
-    margin-bottom: 20px;
-    color: #444;
-`;
-
-const Section = styled.div`
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
 `;
 
 const TagTitle = styled.div`
     font-size: 18px;
-    margin: 10px 0;
+    margin: 20px 0 10px;
     font-weight: bold;
     color: #444;
-    text-align: left;
 `;
 
 const TagsWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3열 */
     gap: 12px;
+    max-width: 600px;
+    width: 100%;
+    margin-bottom: 20px;
 `;
 
 const TagButton = styled.button`
-    padding: 12px 0;
+    padding: 10px;
     border-radius: 16px;
     border: none;
     cursor: pointer;
@@ -167,7 +167,6 @@ const SelectedText = styled.p`
     margin-top: 20px;
     font-size: 14px;
     color: #333;
-    text-align: center;
 `;
 
 const NextButton = styled.button`
@@ -181,7 +180,7 @@ const NextButton = styled.button`
     background: rgba(255, 255, 255, 0.08);
     color: #fff;
     box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.25),
-        -6px -6px 15px rgba(255, 255, 255, 0.1);
+        /* 바깥쪽 그림자 */ -6px -6px 15px rgba(255, 255, 255, 0.1); /* 하이라이트 */
     backdrop-filter: blur(6px);
     cursor: pointer;
     transition: all 0.3s ease;
@@ -194,4 +193,4 @@ const NextButton = styled.button`
     }
 `;
 
-export default AccountHobby;
+export default AccountwantedIntro;

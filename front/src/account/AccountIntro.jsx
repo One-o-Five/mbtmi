@@ -98,7 +98,6 @@ const AccountIntro = () => {
           </TagButton>
         ))}
       </TagsWrapper>
-
       <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
       <NextButton onClick={() => navigate("/hobby")}>다음</NextButton>
     </Container>

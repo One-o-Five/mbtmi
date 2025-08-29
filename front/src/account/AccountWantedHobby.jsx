@@ -59,7 +59,7 @@ const AccountWantedHobby = () => {
 
     return (
         <Container>
-            <Title>당신의 취미를 선택해주세요!</Title>
+            <Title>상대의 이런 취미를 원해요!</Title>
             <TagTag>최대 6개 선택 가능합니다.</TagTag>
 
             <Section>

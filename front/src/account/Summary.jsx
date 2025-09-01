@@ -1,4 +1,3 @@
-
 import { useSignup } from "../SignupProvider";
 
 const Summary = () => {

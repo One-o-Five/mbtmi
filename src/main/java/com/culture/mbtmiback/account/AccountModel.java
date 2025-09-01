@@ -7,7 +7,7 @@ import java.util.Date;
 @Data
 public class AccountModel {
 
-    private int user_id;
+    private Long user_id;
     private String username;
     private String password;
     private String name;

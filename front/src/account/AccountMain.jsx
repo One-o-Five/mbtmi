@@ -31,6 +31,7 @@ import ResultMbti from "../easyMbtiTest/ResultMbti";
 import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Myprofile from "../setting/Myprofile";
 
 const AccountMain = () => {
   const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -61,6 +62,9 @@ const AccountMain = () => {
               )
             }
           />
+
+
+
           <Route path="/account01" element={<Account01 />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<AccountLogin />} />
@@ -69,9 +73,26 @@ const AccountMain = () => {
             element={<PrivateRoute element={<MyInfo />} />}
           />
           <Route
+            path="/mypage/profile"
+            element={<PrivateRoute element={<Myprofile />} />}
+          />
+
+
+            <Route
             path="/mypage/mymbti"
             element={<PrivateRoute element={<Mymbit />} />}
           />
+
+          <Route path="/summary" element={<Summary />} />
+
+
+
+
+
+
+
+
+
 
           {/* 회원가입 */}
 

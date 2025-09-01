@@ -51,7 +51,7 @@ const MyInfo = () => {
         </ProfileSection>
 
         <ButtonSection>
-          <ActionButton>{btn.edit}</ActionButton>
+          <ActionButton onClick={() => navigate("/mypage/profile")}>{btn.edit}</ActionButton>
           <EditList>
             <EditButton onClick={() => navigate("/mypage/mymbti")}>
               {editpage.mbti}

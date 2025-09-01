@@ -14,4 +14,9 @@ public class AccountService {
         return accountMapper.login(username, password);
     }
 
+
+    public boolean updateUser(Long userId, String mbti) {
+        return accountMapper.updateMbti(userId, mbti) > 0;
+    }
+
 }

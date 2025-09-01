@@ -87,18 +87,18 @@ const AccountIntro = () => {
             <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
 
             {/* ✅ 선택 최소 1개 이상이어야 다음으로 가능 */}
-            {/* <NextButton
+            <NextButton
                 disabled={selectedTags.length === 0}
                 onClick={() => navigate("/hobby")}
             >
                 다음
-            </NextButton> */}
-            <NextButton
+            </NextButton>
+            {/* <NextButton
                 disabled={selectedTags.length === 0}
                 onClick={() => navigate("/summary")}
             >
                 다음
-            </NextButton>
+            </NextButton> */}
         </Container>
     );
 };

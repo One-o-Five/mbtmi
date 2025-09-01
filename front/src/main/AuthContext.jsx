@@ -67,9 +67,25 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const updateMymbti = async (updatedData) => {
+    try {
+      const res = await axios.put("/api/update-mymbti", updatedData, {
+        withCredentials: true,
+      });
+      if (res.data) {
+        setUser(res.data); // 전역 상태 갱신
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error("updateMymbti error:", err);
+      return false;
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ loggedIn, user, login, logout, loading, setUser }}
+      value={{ loggedIn, user, login, logout, loading, setUser, updateMymbti }}
     >
       {children}
     </AuthContext.Provider>

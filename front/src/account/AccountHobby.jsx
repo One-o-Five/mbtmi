@@ -1,61 +1,75 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSignup } from "../SignupProvider";
 
 const AccountHobby = () => {
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
+    const { formData, setFormData } = useSignup();
+    const location = useLocation();
+    const fromSummary = location.state?.fromSummary ?? false;
+};
 
-    // 활동적인 취미
-    const activeHobbies = [
-        "#등산",
-        "#여행",
-        "#자전거",
-        "#러닝",
-        "#댄스",
-        "#수영",
-        "#헬스",
-        "#볼링",
-        "#스포츠관람",
-        "#캠핑",
-        "#서핑",
-        "#클라이밍",
-        "#농구",
-        "#축구",
-        "#방탈출",
-    ];
+// 활동적인 취미
+const activeHobbies = [
+    "#등산",
+    "#여행",
+    "#자전거",
+    "#러닝",
+    "#댄스",
+    "#수영",
+    "#헬스",
+    "#볼링",
+    "#스포츠관람",
+    "#캠핑",
+    "#서핑",
+    "#클라이밍",
+    "#농구",
+    "#축구",
+    "#방탈출",
+];
 
-    // 비활동적인 취미
-    const passiveHobbies = [
-        "#영화보기",
-        "#드라마",
-        "#넷플릭스",
-        "#유튜브",
-        "#독서",
-        "#요리하기",
-        "#베이킹",
-        "#악기연주",
-        "#사진찍기",
-        "#보드게임",
-        "#명상",
-        "#그림그리기",
-        "#수다",
-        "#멍때리기",
-        "#산책하기",
-    ];
+// 비활동적인 취미
+const passiveHobbies = [
+    "#영화보기",
+    "#드라마",
+    "#넷플릭스",
+    "#유튜브",
+    "#독서",
+    "#요리하기",
+    "#베이킹",
+    "#악기연주",
+    "#사진찍기",
+    "#보드게임",
+    "#명상",
+    "#그림그리기",
+    "#수다",
+    "#멍때리기",
+    "#산책하기",
+];
 
-    const [selectedTags, setSelectedTags] = useState([]);
+const [selectedTags, setSelectedTags] = useState([]);
 
-    const toggleTag = (tag) => {
-        if (selectedTags.includes(tag)) {
-            setSelectedTags(selectedTags.filter((t) => t !== tag));
+const toggleTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+        setSelectedTags(selectedTags.filter((t) => t !== tag));
+    } else {
+        if (selectedTags.length < 6) {
+            setSelectedTags([...selectedTags, tag]);
         } else {
-            if (selectedTags.length < 6) {
-                setSelectedTags([...selectedTags, tag]);
-            } else {
-                alert("최대 6개까지만 선택할 수 있어요!");
-            }
+            alert("최대 6개까지만 선택할 수 있어요!");
         }
-    };
+    }
+};
+
+const handleNext = () => {
+    setFormData({
+        ...formData,
+        hobby: selectedTags,
+    });
+    {
+        fromSummary ? navigate("/summary") : navigate("/wantedmbti");
+    }
 
     return (
         <Container>
@@ -89,11 +103,13 @@ const AccountHobby = () => {
                     ))}
                 </TagsWrapper>
             </Section>
-
-            <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-            <NextButton onClick={() => nevigate("/wantedmbti")}>
-                다음
+            <NextButton
+                onClick={() => {
+                    handleNext;
+                }}>
+                클릭
             </NextButton>
+            <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
         </Container>
     );
 };

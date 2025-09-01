@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountSelMbti = () => {
     const { form, setForm } = useSignup();
     const navigate = useNavigate();
     const { formData, setFormData } = useSignup(); // ✅ 전역 상태 가져오기
+    const location = useLocation();
+    const fromSummary = location.state?.fromSummary ?? false;
 
     useEffect(() => {
         console.log("signup form:", form);
@@ -107,11 +109,19 @@ const AccountSelMbti = () => {
                     value={`${formData.mbti.EI}${formData.mbti.SN}${formData.mbti.TF}${formData.mbti.JP}`}
                     readOnly
                 />
-                <button
-                    disabled={!isMbtiComplete} // ✅ MBTI 선택 안 하면 비활성화
-                    onClick={() => navigate("/intro")}>
-                    다음으로
-                </button>
+                {fromSummary ? (
+                    <button
+                        disabled={!isMbtiComplete}
+                        onClick={() => navigate("/summary")}>
+                        돌아가기
+                    </button>
+                ) : (
+                    <button
+                        disabled={!isMbtiComplete}
+                        onClick={() => navigate("/intro")}>
+                        다음으로
+                    </button>
+                )}
             </PersonMBTI>
             <LineText>
                 <hr />

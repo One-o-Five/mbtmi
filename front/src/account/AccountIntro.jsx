@@ -1,22 +1,45 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountIntro = () => {
     const navigate = useNavigate();
     const { formData, setFormData } = useSignup(); // 전역 상태 가져오기
+    const location = useLocation();
+    const fromSummary = location.state?.fromSummary ?? false;
 
     const tags = [
-        "#활발한", "#차분한", "#진지한", "#유머러스한", "#논리적인",
-        "#즉흥적인", "#내향적인", "#외향적인", "#열정적인",
+        "#활발한",
+        "#차분한",
+        "#진지한",
+        "#유머러스한",
+        "#논리적인",
+        "#즉흥적인",
+        "#내향적인",
+        "#외향적인",
+        "#열정적인",
     ];
     const tags1 = [
-        "#감정적인", "#솔직한", "#애교많은", "#쿨한", "#신중한",
-        "#허세없는", "#다정한", "#따뜻한", "#센스있는",
+        "#감정적인",
+        "#솔직한",
+        "#애교많은",
+        "#쿨한",
+        "#신중한",
+        "#허세없는",
+        "#다정한",
+        "#따뜻한",
+        "#센스있는",
     ];
     const tags2 = [
-        "#엉뚱한", "#창의적인", "#독립적인", "#낙천적인", "#분석적인",
-        "#모험적인", "#츤데레", "#얀데레", "#자유로운",
+        "#엉뚱한",
+        "#창의적인",
+        "#독립적인",
+        "#낙천적인",
+        "#분석적인",
+        "#모험적인",
+        "#츤데레",
+        "#얀데레",
+        "#자유로운",
     ];
 
     const toggleTag = (tag) => {
@@ -51,8 +74,7 @@ const AccountIntro = () => {
                     <TagButton
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        selected={selectedTags.includes(tag)}
-                    >
+                        selected={selectedTags.includes(tag)}>
                         {tag}
                     </TagButton>
                 ))}
@@ -64,8 +86,7 @@ const AccountIntro = () => {
                     <TagButton
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        selected={selectedTags.includes(tag)}
-                    >
+                        selected={selectedTags.includes(tag)}>
                         {tag}
                     </TagButton>
                 ))}
@@ -77,8 +98,7 @@ const AccountIntro = () => {
                     <TagButton
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        selected={selectedTags.includes(tag)}
-                    >
+                        selected={selectedTags.includes(tag)}>
                         {tag}
                     </TagButton>
                 ))}
@@ -87,18 +107,17 @@ const AccountIntro = () => {
             <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
 
             {/* ✅ 선택 최소 1개 이상이어야 다음으로 가능 */}
+            {fromSummary ? (
+                <button onClick={() => navigate("/summary")}>돌아가기</button>
+            ) : (
+                <button onClick={() => navigate("/hobby")}>다음으로</button>
+            )}
             {/* <NextButton
-                disabled={selectedTags.length === 0}
-                onClick={() => navigate("/hobby")}
-            >
-                다음
-            </NextButton> */}
-            <NextButton
                 disabled={selectedTags.length === 0}
                 onClick={() => navigate("/summary")}
             >
                 다음
-            </NextButton>
+            </NextButton> */}
         </Container>
     );
 };

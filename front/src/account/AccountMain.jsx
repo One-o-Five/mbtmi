@@ -73,8 +73,6 @@ const AccountMain = () => {
                         element={<PrivateRoute element={<Mymbit />} />}
                     />
 
-                    <Route path="/summary" element={<Summary />} />
-
                     {/* 회원가입 */}
 
                     <Route path="/info" element={<AccountInfo />} />
@@ -91,6 +89,7 @@ const AccountMain = () => {
                         element={<AccountWantedHobby />}
                     />
                     <Route path="/introduce" element={<IntroduceMySelf />} />
+                    <Route path="/summary" element={<Summary />} />
 
                     {/* 간단한 MBTI */}
 

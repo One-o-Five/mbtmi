@@ -173,11 +173,11 @@ const Home = () => {
 
       {/* ✅ 하단 네비 */}
       <BottomNav>
-        <NavBtn>🏠</NavBtn>
+        <NavBtn onClick={() => navigate("/home")}>🏠</NavBtn>
         <NavBtn>🔍</NavBtn>
         <NavBtn>❤️</NavBtn>
-        <NavBtn>➕</NavBtn>
-        <NavBtn onClick={() => navigate("/mypage")} >🔔</NavBtn>
+        <NavBtn onClick={() => navigate("/postmain")}>➕</NavBtn>
+        <NavBtn onClick={() => navigate("/mypage")}>🔔</NavBtn>
       </BottomNav>
     </Container>
   );

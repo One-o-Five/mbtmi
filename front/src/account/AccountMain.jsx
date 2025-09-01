@@ -49,7 +49,7 @@ const AccountMain = () => {
 
   return (
     <SignupProvider>
-      <GoogleOAuthProvider >
+      <GoogleOAuthProvider>
         <Routes>
           {/* / 접속 시 로그인 여부에 따라 리다이렉트 */}
           <Route
@@ -104,6 +104,7 @@ const AccountMain = () => {
           <Route path="/wantedintro" element={<AccountwantedIntro />} />
           <Route path="/wantedhobby" element={<AccountWantedHobby />} />
           <Route path="/introduce" element={<IntroduceMySelf />} />
+          <Route path="/summary" element={<Summary />} />
 
           {/* 간단한 MBTI */}
 

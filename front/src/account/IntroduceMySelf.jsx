@@ -1,9 +1,20 @@
 import React, { use } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const IntroduceMySelf = () => {
+  const navigate = useNavigate();
+  const { formData, setFormData } = useSignup(); // 전역 상태 가져오기
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      introduce: e.target.value, // 자기소개 글 저장
+    });
+  };
+
   return (
     <Container>
       <Card>
@@ -19,12 +30,13 @@ const IntroduceMySelf = () => {
           margin: "5px 0",
         }}
       /> */}
-
         <Selfinput
           placeholder="자기소개를 적어주세요 (최대 300자)"
           maxLength={300}
+          value={formData.introduce} // context 값 연결
+          onChange={handleChange} // 입력 이벤트 처리
         />
-        <NextButton onClick={() => navigate("/Info")}>작성완료</NextButton>
+        <NextButton onClick={() => navigate("/summary")}>작성완료</NextButton>
       </Card>
     </Container>
   );
@@ -60,11 +72,9 @@ const Card = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-const NextButton = styled(Link)`
-  margin-top: 60px;
+const NextButton = styled.button`
+  margin-top: 40px;
   margin-bottom: 20px;
-  width: 220px;
-  height: 30px; /* 높이 지정해서 버튼 크기 통일 */
   padding: 12px;
   font-size: 16px;
   font-weight: bold;
@@ -99,7 +109,7 @@ const Selfinput = styled.textarea`
   border-radius: 15px;
   border: none;
   background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  color: #000000;
   backdrop-filter: blur(6px);
   padding: 20px;
   font-size: 16px;

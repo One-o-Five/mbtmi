@@ -3,8 +3,6 @@ import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
 import { useNavigate } from "react-router-dom";
-import { useSignup } from "./SignupContext";
-
 
 const AccountInfo = () => {
     const [id, setId] = useState("");
@@ -12,7 +10,6 @@ const AccountInfo = () => {
     const [checkPassWord, setCheckPassWord] = useState("");
     const [name, setName] = useState("");
     const navigate = useNavigate();
-    const { setForm } = useSignup();
 
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 100 }, (_, i) =>
@@ -23,7 +20,7 @@ const AccountInfo = () => {
     const [year, setYear] = useState(String(currentYear));
     const [month, setMonth] = useState("1");
     const [day, setDay] = useState("1");
-    const [gender, setGender] = useState("M");
+    const [gender, setGender] = useState("남");
 
     const IdCheckHandle = () => {
         if (id === "test") {
@@ -75,24 +72,6 @@ const AccountInfo = () => {
             reader.readAsDataURL(file);
         }
     };
-
-    const saveAndNext = () => {
-        const pwOk = checkPassWordBoth();
-        const allOk = allCheck();
-        if (!pwOk || !allOk) return;
-
-        setForm((prev) => ({
-            ...prev,
-            id,
-            password: passWord,
-            name,
-            birth: { year, month, day },
-            gender,
-        }));
-
-        navigate("/selmbti");
-    };
-
     return (
         <Container>
             <LogoWrapper>
@@ -201,7 +180,9 @@ const AccountInfo = () => {
             </SideLeft>
 
             <ButtonWrapper>
-                <BtnLarge onClick={saveAndNext}>다음으로</BtnLarge>
+                <BtnLarge onClick={() => navigate("/selmbti")}>
+                    다음으로
+                </BtnLarge>
             </ButtonWrapper>
 
             <ButtonWrapper></ButtonWrapper>

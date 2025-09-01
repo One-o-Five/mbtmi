@@ -4,13 +4,11 @@ import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
 import { useNavigate } from "react-router-dom";
 
-
 const AccountInfo = () => {
   const [id, setId] = useState("");
   const [passWord, setPassWord] = useState("");
   const [checkPassWord, setCheckPassWord] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const currentYear = new Date().getFullYear();
@@ -27,14 +25,6 @@ const AccountInfo = () => {
       alert("이미 사용 중인 아이디입니다.");
     } else {
       alert("사용 가능한 아이디입니다!");
-    }
-  };
-
-  const EmailCheckHandle = () => {
-    if (id === "test") {
-      alert("이미 사용 중인 이메일입니다.");
-    } else {
-      alert("사용 가능한 이메일입니다!");
     }
   };
 
@@ -132,7 +122,6 @@ const AccountInfo = () => {
           {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
         </div>
       </SideLeft>
-
       <SideLeft>
         <h3>이름 입력</h3>
         <Input
@@ -141,17 +130,6 @@ const AccountInfo = () => {
           onChange={(e) => setName(e.target.value)}
           placeholder="이름을 입력해주세요"
         />
-      </SideLeft>
-
-      <SideLeft>
-        <h3>이메일 입력</h3>
-        <InputMail
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일을 기입해주세요"
-        />
-        <BtnSmall onClick={EmailCheckHandle}>인증메일받기</BtnSmall>
       </SideLeft>
 
       <SideLeft>
@@ -309,22 +287,6 @@ const BtnLarge = styled.button`
 `;
 
 const Input = styled.input`
-  width: 320px;
-  padding: 12px 15px;
-  margin: 10px 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  outline: none;
-  transition: 0.3s;
-
-  &:focus {
-    border-color: #a6c1ee;
-    box-shadow: 0 0 8px rgba(166, 193, 238, 0.5);
-  }
-`;
-
-const InputMail = styled.input`
   width: 320px;
   padding: 12px 15px;
   margin: 10px 0;

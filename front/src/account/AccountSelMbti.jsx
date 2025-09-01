@@ -4,7 +4,8 @@ import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountSelMbti = () => {
   const navigate = useNavigate();
-  const { formData, setFormData } = useSignup(); // ✅ 전역 상태 가져오기
+  const { formData, setFormData, returnToSummary, setReturnToSummary } =
+    useSignup(); // ✅ 전역 상태 가져오기
 
   // MBTI 선택 핸들러
   const handleMbtiSelect = (category, value) => {
@@ -15,6 +16,15 @@ const AccountSelMbti = () => {
         [category]: prev.mbti[category] === value ? "" : value, // 토글
       },
     }));
+  };
+
+  const handleNext = () => {
+    if (returnToSummary) {
+      setReturnToSummary(false);
+      navigate("/summary");
+    } else {
+      navigate("/intro");
+    }
   };
 
   const goToMbti = () => {
@@ -105,7 +115,7 @@ const AccountSelMbti = () => {
         />
         <button
           disabled={!isMbtiComplete} // ✅ MBTI 선택 안 하면 비활성화
-          onClick={() => navigate("/intro")}
+          onClick={handleNext}
         >
           다음으로
         </button>

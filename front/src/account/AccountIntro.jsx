@@ -4,7 +4,17 @@ import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountIntro = () => {
   const navigate = useNavigate();
-  const { formData, setFormData } = useSignup(); // 전역 상태 가져오기
+  const { formData, setFormData, returnToSummary, setReturnToSummary } =
+    useSignup(); // 전역 상태 가져오기
+
+  const handleNext = () => {
+    if (returnToSummary) {
+      setReturnToSummary(false);
+      navigate("/summary");
+    } else {
+      navigate("/hobby");
+    }
+  };
 
   const tags = [
     "#활발한",
@@ -108,18 +118,15 @@ const AccountIntro = () => {
       <SelectedText>선택된 태그: {selectedTags.join(", ")}</SelectedText>
 
       {/* ✅ 선택 최소 1개 이상이어야 다음으로 가능 */}
+      <NextButton disabled={selectedTags.length === 0} onClick={handleNext}>
+        다음
+      </NextButton>
       {/* <NextButton
-                disabled={selectedTags.length === 0}
-                onClick={() => navigate("/hobby")}
-            >
-                다음
-            </NextButton> */}
-      <NextButton
         disabled={selectedTags.length === 0}
         onClick={() => navigate("/summary")}
       >
         다음
-      </NextButton>
+      </NextButton> */}
     </Container>
   );
 };

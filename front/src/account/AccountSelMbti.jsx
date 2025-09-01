@@ -4,22 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountSelMbti = () => {
-    const { form, setForm } = useSignup();
     const navigate = useNavigate();
-    const { formData, setFormData } = useSignup(); // ✅ 전역 상태 가져오기
-    const location = useLocation();
-    const fromSummary = location.state?.fromSummary ?? false;
+    const { formData, setFormData, returnToSummary, setReturnToSummary } =
+        useSignup(); // ✅ 전역 상태 가져오기
 
-    useEffect(() => {
-        console.log("signup form:", form);
-    }, [form]);
-
-    const [mbti, setMbti] = useState({
-        EI: "", // E 또는 I
-        SN: "", // S 또는 N
-        TF: "", // T 또는 F
-        JP: "", // J 또는 P
-    });
     // MBTI 선택 핸들러
     const handleMbtiSelect = (category, value) => {
         setFormData((prev) => ({
@@ -29,6 +17,15 @@ const AccountSelMbti = () => {
                 [category]: prev.mbti[category] === value ? "" : value, // 토글
             },
         }));
+    };
+
+    const handleNext = () => {
+        if (returnToSummary) {
+            setReturnToSummary(false);
+            navigate("/summary");
+        } else {
+            navigate("/intro");
+        }
     };
 
     const goToMbti = () => {
@@ -109,19 +106,11 @@ const AccountSelMbti = () => {
                     value={`${formData.mbti.EI}${formData.mbti.SN}${formData.mbti.TF}${formData.mbti.JP}`}
                     readOnly
                 />
-                {fromSummary ? (
-                    <button
-                        disabled={!isMbtiComplete}
-                        onClick={() => navigate("/summary")}>
-                        돌아가기
-                    </button>
-                ) : (
-                    <button
-                        disabled={!isMbtiComplete}
-                        onClick={() => navigate("/intro")}>
-                        다음으로
-                    </button>
-                )}
+                <button
+                    disabled={!isMbtiComplete} // ✅ MBTI 선택 안 하면 비활성화
+                    onClick={handleNext}>
+                    다음으로
+                </button>
             </PersonMBTI>
             <LineText>
                 <hr />

@@ -1,75 +1,93 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useSignup } from "../SignupProvider";
+import { useNavigate } from "react-router-dom";
+import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountHobby = () => {
     const navigate = useNavigate();
-    const { formData, setFormData } = useSignup();
-    const location = useLocation();
-    const fromSummary = location.state?.fromSummary ?? false;
-};
+    const { formData, setFormData, returnToSummary, setReturnToSummary } =
+        useSignup(); // 전역 상태 가져오기
 
-// 활동적인 취미
-const activeHobbies = [
-    "#등산",
-    "#여행",
-    "#자전거",
-    "#러닝",
-    "#댄스",
-    "#수영",
-    "#헬스",
-    "#볼링",
-    "#스포츠관람",
-    "#캠핑",
-    "#서핑",
-    "#클라이밍",
-    "#농구",
-    "#축구",
-    "#방탈출",
-];
-
-// 비활동적인 취미
-const passiveHobbies = [
-    "#영화보기",
-    "#드라마",
-    "#넷플릭스",
-    "#유튜브",
-    "#독서",
-    "#요리하기",
-    "#베이킹",
-    "#악기연주",
-    "#사진찍기",
-    "#보드게임",
-    "#명상",
-    "#그림그리기",
-    "#수다",
-    "#멍때리기",
-    "#산책하기",
-];
-
-const [selectedTags, setSelectedTags] = useState([]);
-
-const toggleTag = (tag) => {
-    if (selectedTags.includes(tag)) {
-        setSelectedTags(selectedTags.filter((t) => t !== tag));
-    } else {
-        if (selectedTags.length < 6) {
-            setSelectedTags([...selectedTags, tag]);
+    const handleNext = () => {
+        if (returnToSummary) {
+            setReturnToSummary(false);
+            navigate("/summary");
         } else {
-            alert("최대 6개까지만 선택할 수 있어요!");
+            navigate("/wantedmbti");
         }
-    }
-};
+    };
 
-const handleNext = () => {
-    setFormData({
-        ...formData,
-        hobby: selectedTags,
-    });
-    {
-        fromSummary ? navigate("/summary") : navigate("/wantedmbti");
-    }
+    // 활동적인 취미
+    const activeHobbies = [
+        "#등산",
+        "#여행",
+        "#자전거",
+        "#러닝",
+        "#댄스",
+        "#수영",
+        "#헬스",
+        "#볼링",
+        "#스포츠관람",
+        "#캠핑",
+        "#서핑",
+        "#클라이밍",
+        "#농구",
+        "#축구",
+        "#방탈출",
+    ];
+
+    // 비활동적인 취미
+    const passiveHobbies = [
+        "#영화보기",
+        "#드라마",
+        "#넷플릭스",
+        "#유튜브",
+        "#독서",
+        "#요리하기",
+        "#베이킹",
+        "#악기연주",
+        "#사진찍기",
+        "#보드게임",
+        "#명상",
+        "#그림그리기",
+        "#수다",
+        "#멍때리기",
+        "#산책하기",
+    ];
+
+    const [selectedTags, setSelectedTags] = useState([]);
+
+    // const toggleTag = (tag) => {
+    //   if (selectedTags.includes(tag)) {
+    //     setSelectedTags(selectedTags.filter((t) => t !== tag));
+    //   } else {
+    //     if (selectedTags.length < 6) {
+    //       setSelectedTags([...selectedTags, tag]);
+    //     } else {
+    //       alert("최대 6개까지만 선택할 수 있어요!");
+    //     }
+    //   }
+    // };
+
+    // ✅ Context 기반으로 상태 관리
+    const toggleTag = (tag) => {
+        const currentHobbies = formData.hobby || [];
+        if (currentHobbies.includes(tag)) {
+            setFormData({
+                ...formData,
+                hobby: currentHobbies.filter((t) => t !== tag),
+            });
+        } else {
+            if (currentHobbies.length < 6) {
+                setFormData({
+                    ...formData,
+                    hobby: [...currentHobbies, tag],
+                });
+            } else {
+                alert("최대 6개까지만 선택할 수 있어요!");
+            }
+        }
+    };
 
     return (
         <Container>
@@ -83,7 +101,7 @@ const handleNext = () => {
                         <TagButton
                             key={tag}
                             onClick={() => toggleTag(tag)}
-                            selected={selectedTags.includes(tag)}>
+                            selected={formData.hobby?.includes(tag)}>
                             {tag}
                         </TagButton>
                     ))}
@@ -97,19 +115,26 @@ const handleNext = () => {
                         <TagButton
                             key={tag}
                             onClick={() => toggleTag(tag)}
-                            selected={selectedTags.includes(tag)}>
+                            selected={formData.hobby?.includes(tag)}>
                             {tag}
                         </TagButton>
                     ))}
                 </TagsWrapper>
             </Section>
-            <NextButton
-                onClick={() => {
-                    handleNext;
-                }}>
-                클릭
+
+            <SelectedText>
+                선택된 취미: {formData.hobby?.join(", ")}
+            </SelectedText>
+
+            <NextButton disabled={formData.length === 0} onClick={handleNext}>
+                다음
             </NextButton>
-            <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
+            {/* <NextButton
+        disabled={selectedTags.length === 0}
+        onClick={() => navigate("/summary")}
+      >
+        다음
+      </NextButton> */}
         </Container>
     );
 };

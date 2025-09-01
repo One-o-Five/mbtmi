@@ -91,8 +91,6 @@ const AccountMain = () => {
                     <Route path="/introduce" element={<IntroduceMySelf />} />
                     <Route path="/summary" element={<Summary />} />
 
-                    {/* 간단한 MBTI */}
-
                     <Route
                         path="/easymbti1"
                         element={

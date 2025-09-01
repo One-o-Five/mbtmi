@@ -1,12 +1,30 @@
 import { useSignup } from "../SignupProvider";
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Summary = () => {
-    const { formData } = useSignup();
+    const { formData, setReturnToSummary } = useSignup();
     const navigate = useNavigate();
-    const location = useLocation();
-    const fromSummary = location.state?.fromSummary ?? true;
+
+    const handleEditMbti = () => {
+        setReturnToSummary(true);
+        navigate("/selmbti");
+    };
+
+    const handleEditIntro = () => {
+        setReturnToSummary(true);
+        navigate("/intro");
+    };
+
+    const handleEditHobby = () => {
+        setReturnToSummary(true);
+        navigate("/hobby");
+    };
+
+    const handleEditIntroduce = () => {
+        setReturnToSummary(true);
+        navigate("/introduce");
+    };
 
     const handleSubmit = async () => {
         await fetch("http://localhost:8080/api/signup", {
@@ -31,12 +49,7 @@ const Summary = () => {
                             {formData.mbti.JP}
                         </Center>
                         <Right>
-                            <EditButton
-                                onClick={() =>
-                                    navigate("/selmbti", {
-                                        state: { fromSummary },
-                                    })
-                                }>
+                            <EditButton onClick={handleEditMbti}>
                                 수정
                             </EditButton>
                         </Right>
@@ -56,12 +69,7 @@ const Summary = () => {
                             ))}
                         </Center>
                         <Right>
-                            <EditButton
-                                onClick={() =>
-                                    navigate("/intro", {
-                                        state: { fromSummary },
-                                    })
-                                }>
+                            <EditButton onClick={handleEditIntro}>
                                 수정
                             </EditButton>
                         </Right>
@@ -69,18 +77,15 @@ const Summary = () => {
 
                     <Item>
                         <Left>취미</Left>
-                        <Center>
-                            {Array.isArray(formData.hobby)
-                                ? formData.hobby.join("  ")
-                                : "선택된 취미 없음"}
+                        <Center
+                            style={{
+                                whiteSpace: "pre-wrap",
+                                wordBreak: "keep-all",
+                            }}>
+                            {formData.hobby.join("  ")}
                         </Center>
                         <Right>
-                            <EditButton
-                                onClick={() =>
-                                    navigate("/hobby", {
-                                        state: { fromSummary },
-                                    })
-                                }>
+                            <EditButton onClick={handleEditHobby}>
                                 수정
                             </EditButton>
                         </Right>
@@ -102,7 +107,7 @@ const Summary = () => {
                                 ))}
                         </Center>
                         <Right>
-                            <EditButton onClick={() => navigate("/introduce")}>
+                            <EditButton onClick={handleEditIntroduce}>
                                 수정
                             </EditButton>
                         </Right>
@@ -129,7 +134,7 @@ const Container = styled.div`
 `;
 
 const InfoCard = styled.div`
-    width: 100%;
+    width: 90%;
     max-width: 600px;
     padding: 30px 20px;
     border-radius: 20px;

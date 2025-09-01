@@ -4,7 +4,7 @@ import Home from "../main/Home";
 import AccountLogin from "./AccountLogin";
 import { useAuth } from "../main/AuthContext";
 import MyInfo from "../setting/MyInfo";
-import { SignupProvider } from "../SignupProvider";
+// import { SignupProvider } from "../SignupProvider";
 
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
@@ -28,7 +28,7 @@ import EasyMbti10 from "../easyMbtiTest/EasyMbti10";
 import EasyMbti11 from "../easyMbtiTest/EasyMbti11";
 import EasyMbti12 from "../easyMbtiTest/EasyMbti12";
 import ResultMbti from "../easyMbtiTest/ResultMbti";
-import { SignupProvider } from "./SignupContext";
+import { SignupProvider } from "../SignupProvider";
 import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
 

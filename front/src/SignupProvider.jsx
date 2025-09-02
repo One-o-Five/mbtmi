@@ -4,27 +4,31 @@ const SignupContext = createContext();
 export const useSignup = () => useContext(SignupContext);
 
 export const SignupProvider = ({ children }) => {
-  const [formData, setFormData] = useState({
-    mbti: {
-      EI: "",
-      SN: "",
-      TF: "",
-      JP: "",
-    },
-    introTags: [],
-    hobby: [],
-    introduce: "",
-    result: [],
-    // 나중에 더 추가 가능
-  });
+    const [formData, setFormData] = useState({
+        mbti: {
+            EI: "",
+            SN: "",
+            TF: "",
+            JP: "",
+        },
+        introTags: [],
+        hobby: [],
+        introduce: "",
+        profile: { file: null, preview: "" },
+        // 나중에 더 추가 가능
+    });
 
-  const [returnToSummary, setReturnToSummary] = useState(false);
+    const [returnToSummary, setReturnToSummary] = useState(false);
 
-  return (
-    <SignupContext.Provider
-      value={{ formData, setFormData, returnToSummary, setReturnToSummary }}
-    >
-      {children}
-    </SignupContext.Provider>
-  );
+    return (
+        <SignupContext.Provider
+            value={{
+                formData,
+                setFormData,
+                returnToSummary,
+                setReturnToSummary,
+            }}>
+            {children}
+        </SignupContext.Provider>
+    );
 };

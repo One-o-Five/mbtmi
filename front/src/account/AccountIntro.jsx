@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountIntro = () => {

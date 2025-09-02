@@ -32,6 +32,7 @@ import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Myprofile from "../setting/Myprofile";
+import PreCard from "./PreCard";
 
 const AccountMain = () => {
     const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -99,6 +100,7 @@ const AccountMain = () => {
                     />
                     <Route path="/introduce" element={<IntroduceMySelf />} />
                     <Route path="/summary" element={<Summary />} />
+                    <Route path="/precard" element={<PreCard />} />
 
                     <Route
                         path="/easymbti1"

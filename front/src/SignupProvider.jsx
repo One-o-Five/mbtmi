@@ -14,6 +14,7 @@ export const SignupProvider = ({ children }) => {
         introTags: [],
         hobby: [],
         introduce: "",
+        profile: { file: null, preview: "" },
         // 나중에 더 추가 가능
     });
 

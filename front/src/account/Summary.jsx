@@ -115,6 +115,9 @@ const Summary = () => {
                 </Info>
                 <Btnzone>
                     <SubmitButton onClick={handleSubmit}>저장하기</SubmitButton>
+                    <SubmitButton onClick={() => navigate("/precard")}>
+                        내 카드 미리보기
+                    </SubmitButton>
                 </Btnzone>
             </InfoCard>
         </Container>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../SignupProvider";
 
 const AccountInfo = () => {
     const [id, setId] = useState("");
@@ -10,6 +11,7 @@ const AccountInfo = () => {
     const [checkPassWord, setCheckPassWord] = useState("");
     const [name, setName] = useState("");
     const navigate = useNavigate();
+    const { formData, setFormData } = useSignup();
 
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 100 }, (_, i) =>
@@ -60,17 +62,24 @@ const AccountInfo = () => {
     const [previewUrl, setPreviewUrl] = useState(null);
 
     const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setProfileImage(file);
+        const file = e.target.files?.[0];
+        if (!file) return;
 
-            // 미리보기
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const preview = reader.result;
+
+            // 로컬 state (현재 화면 미리보기용)
+            setProfileImage(file);
+            setPreviewUrl(preview);
+
+            // 전역 상태 (다음 페이지에서도 사용)
+            setFormData((prev) => ({
+                ...prev,
+                profile: { file, preview },
+            }));
+        };
+        reader.readAsDataURL(file);
     };
     return (
         <Container>
@@ -119,7 +128,12 @@ const AccountInfo = () => {
                         alignItems: "center",
                         justifyContent: "center",
                     }}>
-                    <h3>프로필 사진</h3>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        style={{ marginBottom: "10px" }}
+                    />
                     {previewUrl && (
                         <PreviewImage src={previewUrl} alt="미리보기" />
                     )}
@@ -207,6 +221,16 @@ const LogoWrapper = styled.div`
     justify-content: center;
     align-items: center;
     margin-bottom: 5px;
+`;
+
+//사진 관련
+const PreviewImage = styled.img`
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #a6c1ee;
+    margin-top: 8px;
 `;
 
 const TitleWrapper = styled.div`

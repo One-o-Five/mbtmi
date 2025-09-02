@@ -35,6 +35,9 @@ const Summary = () => {
     alert("회원가입 완료!");
   };
 
+  // formData.mbti에서 문자열 조합
+  const mbti = Object.values(formData.mbti ?? {}).join("");
+
   return (
     <Container>
       <InfoCard>
@@ -42,12 +45,7 @@ const Summary = () => {
         <Info>
           <Item>
             <Left>MBTI</Left>
-            <Center>
-              {formData.mbti.EI}
-              {formData.mbti.SN}
-              {formData.mbti.TF}
-              {formData.mbti.JP}
-            </Center>
+            <Center>{mbti}</Center>
             <Right>
               <EditButton onClick={handleEditMbti}>수정</EditButton>
             </Right>
@@ -94,7 +92,9 @@ const Summary = () => {
           </Item>
         </Info>
         <Btnzone>
-          <SubmitButton onClick={handleSubmit}>저장하기</SubmitButton>
+          <SubmitButton onClick={handleSubmit}>
+            내 카드 <br /> 미리보기
+          </SubmitButton>
         </Btnzone>
       </InfoCard>
     </Container>
@@ -175,7 +175,6 @@ const Center = styled.div`
 `;
 
 const Right = styled.div`
-  flex: 1;
   text-align: right;
 `;
 
@@ -203,7 +202,6 @@ const EditButton = styled.button`
 `;
 
 const Btnzone = styled.div`
-  width: inherit;
   display: flex;
   justify-content: center;
 `;
@@ -212,7 +210,7 @@ const SubmitButton = styled.button`
   width: 110px;
   height: 50px;
   padding: 12px;
-  font-size: 19px;
+  font-size: 15px;
   font-weight: bold;
   border-radius: 15px;
   z-index: 100;

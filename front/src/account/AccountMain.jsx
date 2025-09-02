@@ -63,8 +63,6 @@ const AccountMain = () => {
             }
           />
 
-
-
           <Route path="/account01" element={<Account01 />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<AccountLogin />} />
@@ -77,22 +75,12 @@ const AccountMain = () => {
             element={<PrivateRoute element={<Myprofile />} />}
           />
 
-
-            <Route
+          <Route
             path="/mypage/mymbti"
             element={<PrivateRoute element={<Mymbit />} />}
           />
 
           <Route path="/summary" element={<Summary />} />
-
-
-
-
-
-
-
-
-
 
           {/* 회원가입 */}
 

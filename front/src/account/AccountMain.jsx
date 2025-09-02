@@ -90,6 +90,7 @@ const AccountMain = () => {
                     <Route path="/hobby" element={<AccountHobby />} />
                     <Route path="/selmbti" element={<AccountSelMbti />} />
                     <Route path="/wantedmbti" element={<AccountMbti />} />
+
                     <Route
                         path="/wantedintro"
                         element={<AccountwantedIntro />}
@@ -101,6 +102,8 @@ const AccountMain = () => {
                     <Route path="/introduce" element={<IntroduceMySelf />} />
                     <Route path="/summary" element={<Summary />} />
                     <Route path="/precard" element={<PreCard />} />
+
+                    {/* 간단한 MBTI */}
 
                     <Route
                         path="/easymbti1"

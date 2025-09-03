@@ -24,7 +24,13 @@ const PreCard = () => {
           {formData.name}({formData.age}) / {mbti} <br />
         </Name>
         <PreTagZone>
-          <PreTags>{formData.hobby}</PreTags>
+          <PreTags>
+            {formData.hobby.map((tag, i) => (
+              <span key={i} style={{ marginRight: "6px" }}>
+                {tag}
+              </span>
+            ))}
+          </PreTags>
           <PreTags>{formData.introTags}</PreTags>
         </PreTagZone>
 

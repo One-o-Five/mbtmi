@@ -32,6 +32,9 @@ import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Myprofile from "../setting/Myprofile";
+import MyIntro from "../setting/MyIntro";
+import Myhobby from "../setting/Myhobby";
+import WantedInfor from "../setting/WantedInfor";
 import PreCard from "./PreCard";
 
 const AccountMain = () => {
@@ -72,14 +75,39 @@ const AccountMain = () => {
             element={<PrivateRoute element={<MyInfo />} />}
           />
           <Route
-            path="/mypage/profile"
-            element={<PrivateRoute element={<Myprofile />} />}
+            path="/mypage/myintro"
+            element={<PrivateRoute element={<MyIntro />} />}
           />
 
           <Route
             path="/mypage/mymbti"
             element={<PrivateRoute element={<Mymbit />} />}
           />
+
+            <Route
+            path="/mypage/myintro"
+            element={<PrivateRoute element={<Myprofile />} />}
+          />
+            <Route
+            path="/mypage/myhobby"
+            element={<PrivateRoute element={<Myhobby />} />}
+          />
+
+           <Route
+            path="/mypage/wantedinfor"
+            element={<PrivateRoute element={<WantedInfor />} />}
+          />
+
+      
+
+
+
+
+
+
+
+
+
 
           {/* 회원가입 */}
 

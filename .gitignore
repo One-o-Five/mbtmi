@@ -71,7 +71,11 @@ src/main/resources/application.properties
 build.gradle
 settings.gradle
 gradle/wrapper/gradle-wrapper.properties
+<<<<<<< HEAD
+src/db.sql
+=======
 src/db.sql
 
 
 
+>>>>>>> d7eb40ca2cca8588617e8865e7ee25679684a642

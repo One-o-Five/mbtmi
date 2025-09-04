@@ -7,7 +7,8 @@ function App() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/test")
+    // fetch("http://localhost:8080/api/test")
+    fetch("http://localhost:8080/api/data/hello") // CORS 설정된 엔드포인트로 변경
       .then((response) => {
         if (!response.ok) {
           throw new Error("서버 응답 에러");

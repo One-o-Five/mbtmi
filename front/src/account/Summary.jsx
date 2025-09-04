@@ -84,6 +84,7 @@ const Summary = () => {
                                 wordBreak: "keep-all",
                             }}>
                             {formData.hobby.join("  ")}
+                            {formData.location}
                         </Center>
                         <Right>
                             <EditButton onClick={handleEditHobby}>

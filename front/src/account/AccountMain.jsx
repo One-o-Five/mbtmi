@@ -36,7 +36,7 @@ import MyIntro from "../setting/MyIntro";
 import Myhobby from "../setting/Myhobby";
 import WantedInfor from "../setting/WantedInfor";
 import PreCard from "./PreCard";
-import RegionTreeSelect from "./socialLogin/RegionTreeSelect";
+import RegionTreeSelect from "./RegionTreeSelect";
 
 const AccountMain = () => {
     const { loggedIn, loading } = useAuth(); // loading 상태 추가

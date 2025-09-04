@@ -29,6 +29,11 @@ const Summary = () => {
         navigate("/introduce");
     };
 
+    const handleEditRegion = () => {
+        setReturnToSummary(true);
+        navigate("/region");
+    };
+
     const handleSubmit = async () => {
         await fetch("http://localhost:8080/api/signup", {
             method: "POST",
@@ -51,6 +56,28 @@ const Summary = () => {
                         <Center>{mbti}</Center>
                         <Right>
                             <EditButton onClick={handleEditMbti}>
+                                수정
+                            </EditButton>
+                        </Right>
+                    </Item>
+
+                    <Item>
+                        <Left>거주지역</Left>
+                        <Center
+                            style={{
+                                whiteSpace: "pre-wrap",
+                                wordBreak: "keep-all",
+                            }}>
+                            {formData.location
+                                .split(/\n/) // 엔터 기준으로 분리
+                                .map((paragraph, i) => (
+                                    <p key={i} style={{ margin: "8px 0" }}>
+                                        {paragraph.trim()}
+                                    </p>
+                                ))}
+                        </Center>
+                        <Right>
+                            <EditButton onClick={handleEditRegion}>
                                 수정
                             </EditButton>
                         </Right>
@@ -84,7 +111,6 @@ const Summary = () => {
                                 wordBreak: "keep-all",
                             }}>
                             {formData.hobby.join("  ")}
-                            {formData.location}
                         </Center>
                         <Right>
                             <EditButton onClick={handleEditHobby}>

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import profileimage from "../assets/img/kar.jpg";
 import logoimage from "../assets/img/mbtmi.jpg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Container = styled.div`
   min-height: 100dvh;
@@ -15,7 +17,7 @@ const Container = styled.div`
 
   background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
   position: relative; /* 🔥 하단 네비 절대위치 기준 */
-  padding-top: 60px
+  padding-top: 60px;
 `;
 
 const LogoImage = styled.img`
@@ -47,7 +49,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-    margin-bottom: 80px; 
+  margin-bottom: 80px;
 `;
 
 const ProfileImage = styled.img`
@@ -101,8 +103,7 @@ const BottomNav = styled.nav`
   justify-content: space-evenly;
 
   border-radius: 20px 20px 0 0; /* 위쪽만 둥글게 */
-  box-shadow: inset 4px 4px 8px #d1d9e6,
-              inset -4px -4px 8px #ffffff; /* 뉴모피즘 음각 효과 */
+  box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; /* 뉴모피즘 음각 효과 */
 `;
 
 const NavBtn = styled.button`
@@ -115,32 +116,90 @@ const NavBtn = styled.button`
   cursor: pointer;
 
   /* 뉴모피즘 버튼 */
-  box-shadow: 4px 4px 8px #d1d9e6,
-              -4px -4px 8px #ffffff;
+  box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
   transition: all 0.2s ease;
 
   &:active {
-    box-shadow: inset 4px 4px 8px #d1d9e6,
-                inset -4px -4px 8px #ffffff; /* 눌림 효과 */
+    box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; /* 눌림 효과 */
     transform: scale(0.95);
   }
 `;
+const CardWrapper = styled.div`
+  overflow: hidden; // 화면 밖 카드 숨김
+`;
 
+const CardSlide = styled.div`
+  display: flex;
+  transition: transform 0.3s ease;
+  transform: translateX(${(props) => -props.index * 100}%);
+`;
+
+const CardItem = styled.div`
+  width: 100%; // 부모 폭에 맞춤
+  flex-shrink: 0; // 카드가 줄어들지 않음
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const Home = () => {
   const navigate = useNavigate();
+
+  const [currentUser, setCurrentUser] = useState(null);
+  const [randomUsers, setRandomUsers] = useState([]); // 랜덤 유저 50명 배열
+  const [currentIndex, setCurrentIndex] = useState(0); // 현재 카드 인덱스
+
   const profile = {
-    name: "유지민",
-    age: 26,
-    mbti: "ENFP",
-    tags: [
-      "집순이_집돌이",
-      "여행_좋아함",
-      "반려동물",
-      "책읽기_취미",
-      "운동하는_사람",
-      "아침형인간",
-    ],
     btn: ["❤️", "❌"],
+  };
+
+  useEffect(() => {
+    // 1️⃣ 현재 로그인한 유저 정보 가져오기
+    const fetchCurrentUser = async () => {
+      try {
+        const res = await axios.get("/api/check-session");
+        if (res.data.loggedIn) {
+          setCurrentUser(res.data.user); // currentUser 세팅
+        }
+      } catch (err) {
+        console.error("세션 체크 실패:", err);
+      }
+    };
+
+    fetchCurrentUser();
+  }, []);
+
+  // 랜덤 유저 50명 가져오기
+  const fetchRandomUsers = async () => {
+    if (!currentUser) return;
+    try {
+      const res = await axios.get(`/api/users/random/${currentUser.user_id}`);
+      setRandomUsers(res.data);
+      setCurrentIndex(0);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) fetchRandomUsers();
+  }, [currentUser]);
+
+  //단일카드용 이었음
+  // const currentRandomUser = randomUsers[currentIndex];
+
+  const handleNext = async () => {
+    const nextIndex = currentIndex + 1;
+    if (nextIndex >= randomUsers.length) {
+      try {
+        const res = await axios.get(`/api/users/random/${currentUser.user_id}`);
+        setRandomUsers(res.data);
+        setCurrentIndex(0); // 새 데이터 첫 카드부터 시작
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      setCurrentIndex(nextIndex);
+    }
   };
 
   return (
@@ -150,26 +209,36 @@ const Home = () => {
         alt=""
         style={{ userSelect: "none", WebkitUserDrag: "none" }}
       />
-      <Card>
-        <ProfileImage
-          src={profileimage}
-          alt=""
-          style={{ userSelect: "none", WebkitUserDrag: "none" }}
-        />
-        <Name>
-          {profile.name} ({profile.age}) / {profile.mbti}
-        </Name>
-        <TagList>
-          {profile.tags.map((tag, index) => (
-            <Tag key={index}>#{tag}</Tag>
+      <CardWrapper>
+        <CardSlide index={currentIndex}>
+          {randomUsers.map((user) => (
+            <CardItem key={user.user_id}>
+              <Card>
+                <div>
+                  <ProfileImage src={user.photo_url} alt="profile" />
+                  <Name>이름: {user.name}</Name>
+                  <p>MBTI: {user.mbti}</p>
+                  <p>자기소개: {user.self_intro}</p>
+                </div>
+                {/* // 백엔드에서 받아온 태그 중 SELF 타입만 필터링 */}
+                <TagList>
+                  {user.tags
+                    .filter((tag) => tag.type === "SELF") // SELF 타입만
+                    .map((tag) => (
+                      <Tag key={tag.tag_id}>#{tag.tag_name}</Tag>
+                    ))}
+                </TagList>
+                {/* <Btn onClick={handleNext}>Next</Btn> */}
+                <Btns onClick={handleNext}>
+                  {profile.btn.map((btn, index) => (
+                    <Btn key={index}>{btn}</Btn>
+                  ))}
+                </Btns>
+              </Card>
+            </CardItem>
           ))}
-        </TagList>
-        <Btns>
-          {profile.btn.map((btn, index) => (
-            <Btn key={index}>{btn}</Btn>
-          ))}
-        </Btns>
-      </Card>
+        </CardSlide>
+      </CardWrapper>
 
       {/* ✅ 하단 네비 */}
       <BottomNav>
@@ -177,7 +246,7 @@ const Home = () => {
         <NavBtn>🔍</NavBtn>
         <NavBtn>❤️</NavBtn>
         <NavBtn>➕</NavBtn>
-        <NavBtn onClick={() => navigate("/mypage")} >🔔</NavBtn>
+        <NavBtn onClick={() => navigate("/mypage")}>🔔</NavBtn>
       </BottomNav>
     </Container>
   );

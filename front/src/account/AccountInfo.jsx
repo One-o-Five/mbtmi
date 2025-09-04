@@ -14,10 +14,14 @@ const AccountInfo = () => {
   const { formData, setFormData } = useSignup();
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
+  const maxYear = currentYear - 20; // 20살 이상만 가능
+  const minYear = currentYear - 80; // 80년 전까지 허용
+  const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) =>
+    String(maxYear - i)
+  );
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
-  const [year, setYear] = useState(String(currentYear));
+  const [year, setYear] = useState(String(maxYear));
   const [month, setMonth] = useState("1");
   const [day, setDay] = useState("1");
   const [gender, setGender] = useState("남");
@@ -101,131 +105,163 @@ const AccountInfo = () => {
 
   return (
     <Container>
-      <LogoWrapper>
-        <Mbtmi src={mbtmi} alt="MBTI Logo" />
-      </LogoWrapper>
+      <Card>
+        <LogoWrapper>
+          <Mbtmi src={mbtmi} alt="MBTI Logo" />
+        </LogoWrapper>
 
-      <TitleWrapper>회원가입</TitleWrapper>
-
-      <SideLeft>
-        <h3>아이디 입력</h3>
-        <Input
-          type="text"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          placeholder="아이디를 입력해주세요"
-        />
-        <BtnSmall onClick={IdCheckHandle}>중복체크</BtnSmall>
-      </SideLeft>
-
-      <SideLeft>
-        <h3>비밀번호 입력</h3>
-        <Input
-          type="text"
-          value={passWord}
-          onChange={(e) => setPassWord(e.target.value)}
-          placeholder="비밀번호를 입력해주세요"
-        />
-      </SideLeft>
-
-      <SideLeft>
-        <h3>비밀번호 재입력</h3>
-        <Input
-          type="text"
-          value={checkPassWord}
-          onChange={(e) => setCheckPassWord(e.target.value)}
-          placeholder="비밀번호를 다시한번 입력해주세요"
-        />
-      </SideLeft>
-
-      <SideLeft>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ marginBottom: "10px" }}
+        <TitleWrapper>회원가입</TitleWrapper>
+      </Card>
+      <Card>
+        <SideLeft>
+          <h2>아이디 입력</h2>
+          <Input
+            type="text"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            placeholder="아이디를 입력해주세요"
           />
-          {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
-        </div>
-      </SideLeft>
-      <SideLeft>
-        <h3>이름 입력</h3>
-        <Input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="이름을 입력해주세요"
-        />
-      </SideLeft>
+          <BtnSmall onClick={IdCheckHandle}>중복체크</BtnSmall>
+        </SideLeft>
+      </Card>
+      <Card>
+        <SideLeft>
+          <h2>비밀번호 입력</h2>
+          <Input
+            type="text"
+            value={passWord}
+            onChange={(e) => setPassWord(e.target.value)}
+            placeholder="비밀번호를 입력해주세요"
+          />
+        </SideLeft>
 
-      <SideLeft>
-        <h3>생년월일</h3>
-        <Year>
-          <AccountYear options={years} value={year} onChange={setYear} />
-          <AccountYear options={months} value={month} onChange={setMonth} />
-          <AccountYear options={days} value={day} onChange={setDay} />
-        </Year>
+        <SideLeft>
+          <h2>비밀번호 재입력</h2>
+          <Input
+            type="text"
+            value={checkPassWord}
+            onChange={(e) => setCheckPassWord(e.target.value)}
+            placeholder="비밀번호를 다시한번 입력해주세요"
+          />
+        </SideLeft>
+      </Card>
+      <Card>
+        <SideLeft>
+          <h2>프로필사진 선택</h2>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={{ marginBottom: "10px" }}
+            />
+            {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
+          </div>
+        </SideLeft>
+      </Card>
+      <Card>
+        <SideLeft>
+          <h2>이름 입력</h2>
+          <Input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="이름을 입력해주세요"
+          />
+        </SideLeft>
+      </Card>
+      <Card>
+        <SideLeft>
+          <h2>생년월일</h2>
+          <Year>
+            <AccountYear options={years} value={year} onChange={setYear} />
+            <AccountYear options={months} value={month} onChange={setMonth} />
+            <AccountYear options={days} value={day} onChange={setDay} />
+          </Year>
 
-        <div>
-          <h3>성별</h3>
-          <GenderWrapper>
-            <GenderLabel>
-              <input
-                type="radio"
-                name="gender"
-                value="M"
-                checked={gender === "M"}
-                onChange={(e) => setGender(e.target.value)}
-              />
-              <span>남</span>
-            </GenderLabel>
+          <div>
+            <h2 style={{ marginTop: "30px" }}>성별</h2>
+            <GenderWrapper>
+              <GenderLabel>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="M"
+                  checked={gender === "M"}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                <span>남</span>
+              </GenderLabel>
 
-            <GenderLabel>
-              <input
-                type="radio"
-                name="gender"
-                value="F"
-                checked={gender === "F"}
-                onChange={(e) => setGender(e.target.value)}
-              />
-              <span>여</span>
-            </GenderLabel>
-          </GenderWrapper>
-        </div>
-      </SideLeft>
+              <GenderLabel>
+                <input
+                  type="radio"
+                  name="gender"
+                  value="F"
+                  checked={gender === "F"}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                <span>여</span>
+              </GenderLabel>
+            </GenderWrapper>
+          </div>
+        </SideLeft>
+      </Card>
+      <Card>
+        <ButtonWrapper>
+          <BtnLarge
+            onClick={() => {
+              const age = calculateAge(year, month, day); // ✅ 나이 계산
 
-      <ButtonWrapper>
-        <BtnLarge
-          onClick={() => {
-            const age = calculateAge(year, month, day); // ✅ 나이 계산
+              setFormData((prev) => ({
+                ...prev,
+                name: name,
+                age: age, // ✅ 나이만 저장
+                gender: gender,
+              }));
 
-            setFormData((prev) => ({
-              ...prev,
-              name: name,
-              age: age, // ✅ 나이만 저장
-              gender: gender,
-            }));
-
-            navigate("/selmbti");
-          }}
-        >
-          다음으로
-        </BtnLarge>
-      </ButtonWrapper>
-
+              navigate("/selmbti");
+            }}
+          >
+            다음으로
+          </BtnLarge>
+        </ButtonWrapper>
+      </Card>
       <ButtonWrapper></ButtonWrapper>
     </Container>
   );
 };
 /* =================== Styled Components =================== */
+const Card = styled.div`
+  width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0.1) 40%,
+    transparent 100%
+  );
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+`;
 const Container = styled.div`
   min-height: 100dvh;
   width: 100vw;
@@ -235,6 +271,8 @@ const Container = styled.div`
   flex-direction: column;
   padding-top: 10px;
   font-size: 10pt;
+  justify-content: center; /* 세로 중앙 */
+  align-items: center; /* 가로 중앙 */
 `;
 
 const LogoWrapper = styled.div`
@@ -260,26 +298,29 @@ const TitleWrapper = styled.div`
   align-items: center;
   margin-bottom: 5px;
   font-size: 30px;
-
   color: #000000;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const Mbtmi = styled.img`
   width: 200px;
   height: auto;
-  margin-top: 10px;
 `;
 
 const SideLeft = styled.div`
-  padding: 0 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
 `;
 
 const BtnSmall = styled.button`
@@ -317,9 +358,7 @@ const BtnSmall = styled.button`
 const BtnLarge = styled.button`
   width: 220px;
   height: 50px; /* 높이 지정해서 버튼 크기 통일 */
-  padding: 12px;
-  margin-top: 15px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
   border-radius: 15px;
   border: none;
@@ -372,6 +411,7 @@ const GenderWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
+  margin-bottom: 10px;
 `;
 
 const GenderLabel = styled.label`

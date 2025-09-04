@@ -6,45 +6,38 @@ const AccountYear = ({ options, value, onChange }) => {
 
   useEffect(() => {
     const el = listRef.current;
-    let timeout;
 
-    const onScroll = () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        const items = Array.from(el.children);
-        const rect = el.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
+    const onWheel = (e) => {
+      e.preventDefault();
+      const items = Array.from(el.children).filter((c) => c.tagName === "LI");
+      const currentIndex = items.findIndex((item) => item.innerText === value);
 
-        let closest = null;
-        let closestDist = Infinity;
-        items.forEach((item) => {
-          const itemRect = item.getBoundingClientRect();
-          const itemCenter = itemRect.top + itemRect.height / 2;
-          const dist = Math.abs(center - itemCenter);
-          if (dist < closestDist) {
-            closestDist = dist;
-            closest = item.innerText;
-          }
+      let nextIndex = currentIndex + (e.deltaY > 0 ? 1 : -1);
+      nextIndex = Math.max(1, Math.min(items.length - 2, nextIndex)); // 더미 제외
+
+      const nextValue = items[nextIndex].innerText;
+      if (nextValue) {
+        onChange(nextValue);
+        items[nextIndex].scrollIntoView({
+          behavior: "smooth",
+          block: "center",
         });
-
-        if (closest && closest !== value) {
-          onChange(closest);
-        }
-      }, 100);
+      }
     };
 
-    el.addEventListener("scroll", onScroll);
-    return () => el.removeEventListener("scroll", onScroll);
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
   }, [value, onChange]);
-
   return (
     <Wrapper>
       <ul ref={listRef}>
+        <li style={{ height: "50px" }} /> {/* 더미 위쪽 */}
         {options.map((opt) => (
           <li key={opt} className={opt === value ? "active" : ""}>
             {opt}
           </li>
         ))}
+        <li style={{ height: "50px" }} /> {/* 더미 아래쪽 */}
       </ul>
       <div className="highlight" />
     </Wrapper>

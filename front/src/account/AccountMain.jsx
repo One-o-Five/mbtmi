@@ -35,6 +35,7 @@ import Myprofile from "../setting/Myprofile";
 import MyIntro from "../setting/MyIntro";
 import Myhobby from "../setting/Myhobby";
 import WantedInfor from "../setting/WantedInfor";
+import PreCard from "./PreCard";
 
 const AccountMain = () => {
   const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -66,8 +67,6 @@ const AccountMain = () => {
             }
           />
 
-
-
           <Route path="/account01" element={<Account01 />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<AccountLogin />} />
@@ -80,8 +79,7 @@ const AccountMain = () => {
             element={<PrivateRoute element={<MyIntro />} />}
           />
 
-
-            <Route
+          <Route
             path="/mypage/mymbti"
             element={<PrivateRoute element={<Mymbit />} />}
           />
@@ -118,10 +116,12 @@ const AccountMain = () => {
           <Route path="/hobby" element={<AccountHobby />} />
           <Route path="/selmbti" element={<AccountSelMbti />} />
           <Route path="/wantedmbti" element={<AccountMbti />} />
+
           <Route path="/wantedintro" element={<AccountwantedIntro />} />
           <Route path="/wantedhobby" element={<AccountWantedHobby />} />
           <Route path="/introduce" element={<IntroduceMySelf />} />
           <Route path="/summary" element={<Summary />} />
+          <Route path="/precard" element={<PreCard />} />
 
           {/* 간단한 MBTI */}
 

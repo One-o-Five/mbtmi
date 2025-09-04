@@ -3,6 +3,7 @@ import styled from "styled-components";
 import mbtmi from "../assets/img/mbtmi.jpg";
 import AccountYear from "./AccountYear";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../SignupProvider";
 
 const AccountInfo = () => {
   const [id, setId] = useState("");
@@ -10,6 +11,7 @@ const AccountInfo = () => {
   const [checkPassWord, setCheckPassWord] = useState("");
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const { formData, setFormData } = useSignup();
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
@@ -19,6 +21,21 @@ const AccountInfo = () => {
   const [month, setMonth] = useState("1");
   const [day, setDay] = useState("1");
   const [gender, setGender] = useState("남");
+
+  const calculateAge = (year, month, day) => {
+    const today = new Date();
+    const birthDate = new Date(year, month - 1, day);
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const m = today.getMonth() - birthDate.getMonth();
+    const d = today.getDate() - birthDate.getDate();
+
+    if (m < 0 || (m === 0 && d < 0)) {
+      age--;
+    }
+
+    return age;
+  };
 
   const IdCheckHandle = () => {
     if (id === "test") {
@@ -58,18 +75,30 @@ const AccountInfo = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProfileImage(file);
+    const file = e.target.files?.[0];
+    if (!file) return;
 
-      // 미리보기
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewUrl(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const preview = reader.result;
+
+      // 로컬 state (현재 화면 미리보기용)
+      setProfileImage(file);
+      setPreviewUrl(preview);
+
+      // 전역 상태 (다음 페이지에서도 사용)
+      setFormData((prev) => ({
+        ...prev,
+        profile: { file, preview },
+      }));
+    };
+    reader.readAsDataURL(file);
   };
+
+  console.log(year);
+  console.log(month);
+  console.log(day);
+
   return (
     <Container>
       <LogoWrapper>
@@ -118,7 +147,12 @@ const AccountInfo = () => {
             justifyContent: "center",
           }}
         >
-          <h3>프로필 사진</h3>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            style={{ marginBottom: "10px" }}
+          />
           {previewUrl && <PreviewImage src={previewUrl} alt="미리보기" />}
         </div>
       </SideLeft>
@@ -169,14 +203,28 @@ const AccountInfo = () => {
       </SideLeft>
 
       <ButtonWrapper>
-        <BtnLarge onClick={() => navigate("/selmbti")}>다음으로</BtnLarge>
+        <BtnLarge
+          onClick={() => {
+            const age = calculateAge(year, month, day); // ✅ 나이 계산
+
+            setFormData((prev) => ({
+              ...prev,
+              name: name,
+              age: age, // ✅ 나이만 저장
+              gender: gender,
+            }));
+
+            navigate("/selmbti");
+          }}
+        >
+          다음으로
+        </BtnLarge>
       </ButtonWrapper>
 
       <ButtonWrapper></ButtonWrapper>
     </Container>
   );
 };
-
 /* =================== Styled Components =================== */
 const Container = styled.div`
   min-height: 100dvh;
@@ -194,6 +242,16 @@ const LogoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 5px;
+`;
+
+//사진 관련
+const PreviewImage = styled.img`
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a6c1ee;
+  margin-top: 8px;
 `;
 
 const TitleWrapper = styled.div`

@@ -30,7 +30,7 @@ import EasyMbti12 from "../easyMbtiTest/EasyMbti12";
 import ResultMbti from "../easyMbtiTest/ResultMbti";
 import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+
 import Myprofile from "../setting/Myprofile";
 import MyIntro from "../setting/MyIntro";
 import Myhobby from "../setting/Myhobby";
@@ -53,7 +53,7 @@ const AccountMain = () => {
 
   return (
     <SignupProvider>
-      <GoogleOAuthProvider>
+    
         <Routes>
           {/* / 접속 시 로그인 여부에 따라 리다이렉트 */}
           <Route
@@ -230,7 +230,7 @@ const AccountMain = () => {
             }
           />
         </Routes>
-      </GoogleOAuthProvider>
+      
     </SignupProvider>
   );
 };

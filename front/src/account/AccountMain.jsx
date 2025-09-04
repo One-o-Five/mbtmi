@@ -32,6 +32,9 @@ import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Myprofile from "../setting/Myprofile";
+import MyIntro from "../setting/MyIntro";
+import Myhobby from "../setting/Myhobby";
+import WantedInfor from "../setting/WantedInfor";
 
 const AccountMain = () => {
   const { loggedIn, loading } = useAuth(); // loading 상태 추가
@@ -73,8 +76,8 @@ const AccountMain = () => {
             element={<PrivateRoute element={<MyInfo />} />}
           />
           <Route
-            path="/mypage/profile"
-            element={<PrivateRoute element={<Myprofile />} />}
+            path="/mypage/myintro"
+            element={<PrivateRoute element={<MyIntro />} />}
           />
 
 
@@ -83,7 +86,21 @@ const AccountMain = () => {
             element={<PrivateRoute element={<Mymbit />} />}
           />
 
-          <Route path="/summary" element={<Summary />} />
+            <Route
+            path="/mypage/myintro"
+            element={<PrivateRoute element={<Myprofile />} />}
+          />
+            <Route
+            path="/mypage/myhobby"
+            element={<PrivateRoute element={<Myhobby />} />}
+          />
+
+           <Route
+            path="/mypage/wantedinfor"
+            element={<PrivateRoute element={<WantedInfor />} />}
+          />
+
+      
 
 
 

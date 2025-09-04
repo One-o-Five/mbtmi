@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const Mymbit = () => {
   const navigate = useNavigate();
-const { user, updateMymbti } = useAuth();
+  const { user, updateMymbti } = useAuth();
   const [mbti, setMbti] = useState({
     EI: "", // E 또는 I
     SN: "", // S 또는 N
@@ -28,17 +28,16 @@ const { user, updateMymbti } = useAuth();
     }));
   };
 
-    const handleUpdate = async () => {
+  const handleUpdate = async () => {
     const newMbti = `${mbti.EI}${mbti.SN}${mbti.TF}${mbti.JP}`;
     const success = await updateMymbti({ mbti: newMbti }); // ✅ 서버 요청 + 전역 갱신
     if (success) {
       alert("MBTI가 업데이트되었습니다!");
-      navigate("/mypage")
+      navigate("/mypage");
     } else {
       alert("업데이트 실패 ㅠㅠ");
     }
   };
-
 
   return (
     <Container>

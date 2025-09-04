@@ -1,9 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountHobby = () => {
-    const nevigate = useNavigate();
+    const navigate = useNavigate();
+    const { formData, setFormData, returnToSummary, setReturnToSummary } =
+        useSignup(); // 전역 상태 가져오기
+
+    const handleNext = () => {
+        if (returnToSummary) {
+            setReturnToSummary(false);
+            navigate("/summary");
+        } else {
+            navigate("/wantedmbti");
+        }
+    };
 
     // 활동적인 취미
     const activeHobbies = [
@@ -45,12 +57,32 @@ const AccountHobby = () => {
 
     const [selectedTags, setSelectedTags] = useState([]);
 
+    // const toggleTag = (tag) => {
+    //   if (selectedTags.includes(tag)) {
+    //     setSelectedTags(selectedTags.filter((t) => t !== tag));
+    //   } else {
+    //     if (selectedTags.length < 6) {
+    //       setSelectedTags([...selectedTags, tag]);
+    //     } else {
+    //       alert("최대 6개까지만 선택할 수 있어요!");
+    //     }
+    //   }
+    // };
+
+    // ✅ Context 기반으로 상태 관리
     const toggleTag = (tag) => {
-        if (selectedTags.includes(tag)) {
-            setSelectedTags(selectedTags.filter((t) => t !== tag));
+        const currentHobbies = formData.hobby || [];
+        if (currentHobbies.includes(tag)) {
+            setFormData({
+                ...formData,
+                hobby: currentHobbies.filter((t) => t !== tag),
+            });
         } else {
-            if (selectedTags.length < 6) {
-                setSelectedTags([...selectedTags, tag]);
+            if (currentHobbies.length < 6) {
+                setFormData({
+                    ...formData,
+                    hobby: [...currentHobbies, tag],
+                });
             } else {
                 alert("최대 6개까지만 선택할 수 있어요!");
             }
@@ -69,7 +101,7 @@ const AccountHobby = () => {
                         <TagButton
                             key={tag}
                             onClick={() => toggleTag(tag)}
-                            selected={selectedTags.includes(tag)}>
+                            selected={formData.hobby?.includes(tag)}>
                             {tag}
                         </TagButton>
                     ))}
@@ -83,17 +115,26 @@ const AccountHobby = () => {
                         <TagButton
                             key={tag}
                             onClick={() => toggleTag(tag)}
-                            selected={selectedTags.includes(tag)}>
+                            selected={formData.hobby?.includes(tag)}>
                             {tag}
                         </TagButton>
                     ))}
                 </TagsWrapper>
             </Section>
 
-            <SelectedText>선택된 취미: {selectedTags.join(", ")}</SelectedText>
-            <NextButton onClick={() => nevigate("/wantedmbti")}>
+            <SelectedText>
+                선택된 취미: {formData.hobby?.join(", ")}
+            </SelectedText>
+
+            <NextButton disabled={formData.length === 0} onClick={handleNext}>
                 다음
             </NextButton>
+            {/* <NextButton
+        disabled={selectedTags.length === 0}
+        onClick={() => navigate("/summary")}
+      >
+        다음
+      </NextButton> */}
         </Container>
     );
 };

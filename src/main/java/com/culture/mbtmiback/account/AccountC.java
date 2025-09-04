@@ -1,9 +1,12 @@
 package com.culture.mbtmiback.account;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -53,6 +56,28 @@ public class AccountC {
             result.put("message", "세션 없음");
         }
         return result;
+    }
+
+
+
+    @PutMapping("/update-mymbti")
+    public ResponseEntity<AccountModel> updateUser(@RequestBody AccountModel updatedUser, HttpSession session) {
+        AccountModel sessionUser = (AccountModel) session.getAttribute("user");
+        if (sessionUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+
+        // ✅ 수정된 부분
+        boolean success = accountService.updateUser((long) sessionUser.getUser_id(), updatedUser.getMbti());
+
+        if (success) {
+            sessionUser.setMbti(updatedUser.getMbti()); // 세션 갱신
+            session.setAttribute("user", sessionUser);
+            return ResponseEntity.ok(sessionUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 

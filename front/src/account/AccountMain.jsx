@@ -5,6 +5,7 @@ import AccountLogin from "./AccountLogin";
 import { useAuth } from "../main/AuthContext";
 import MyInfo from "../setting/MyInfo";
 import { SignupProvider } from "../SignupProvider";
+
 import AccountInfo from "./AccountInfo";
 import AccountSelMbti from "./AccountSelMbti";
 import AccountMbti from "./AccountMbti";
@@ -29,6 +30,7 @@ import EasyMbti12 from "../easyMbtiTest/EasyMbti12";
 import ResultMbti from "../easyMbtiTest/ResultMbti";
 import Mymbit from "../setting/MyMbit";
 import Summary from "./Summary";
+
 import Myprofile from "../setting/Myprofile";
 import MyIntro from "../setting/MyIntro";
 import Myhobby from "../setting/Myhobby";

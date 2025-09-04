@@ -1,10 +1,12 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSignup } from "../SignupProvider"; // ✅ Context 불러오기
 
 const AccountSelMbti = () => {
     const navigate = useNavigate();
-    const { formData, setFormData } = useSignup(); // ✅ 전역 상태 가져오기
+    const { formData, setFormData, returnToSummary, setReturnToSummary } =
+        useSignup(); // ✅ 전역 상태 가져오기
 
     // MBTI 선택 핸들러
     const handleMbtiSelect = (category, value) => {
@@ -17,13 +19,25 @@ const AccountSelMbti = () => {
         }));
     };
 
+    const handleNext = () => {
+        if (returnToSummary) {
+            setReturnToSummary(false);
+            navigate("/summary");
+        } else {
+            navigate("/intro");
+        }
+    };
+
     const goToMbti = () => {
         window.open("https://www.16personalities.com/ko", "_blank");
     };
 
     // ✅ MBTI 4자리 모두 선택했는지 체크
     const isMbtiComplete =
-        formData.mbti.EI && formData.mbti.SN && formData.mbti.TF && formData.mbti.JP;
+        formData.mbti.EI &&
+        formData.mbti.SN &&
+        formData.mbti.TF &&
+        formData.mbti.JP;
 
     return (
         <Container>
@@ -94,7 +108,7 @@ const AccountSelMbti = () => {
                 />
                 <button
                     disabled={!isMbtiComplete} // ✅ MBTI 선택 안 하면 비활성화
-                    onClick={() => navigate("/intro")}>
+                    onClick={handleNext}>
                     다음으로
                 </button>
             </PersonMBTI>

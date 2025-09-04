@@ -56,9 +56,9 @@ const MyInfo = () => {
             <EditButton onClick={() => navigate("/mypage/mymbti")}>
               {editpage.mbti}
             </EditButton>
-            <EditButton>{editpage.introduce}</EditButton>
-            <EditButton>{editpage.hobby}</EditButton>
-            <EditButton>{editpage.partner}</EditButton>
+            <EditButton onClick={() => navigate("/mypage/myintro")}>{editpage.introduce}</EditButton>
+            <EditButton onClick={() => navigate("/mypage/myhobby")}>{editpage.hobby}</EditButton>
+            <EditButton onClick={() => navigate("/mypage/wantedinfor")}>{editpage.partner}</EditButton>
           </EditList>
         </ButtonSection>
 

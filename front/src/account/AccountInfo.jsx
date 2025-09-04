@@ -14,7 +14,7 @@ const AccountInfo = () => {
   const { formData, setFormData } = useSignup();
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 100 }, (_, i) => String(currentYear - i));
+  const years = Array.from({ length: 50 }, (_, i) => String(currentYear - i));
   const months = Array.from({ length: 12 }, (_, i) => String(i + 1));
   const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
   const [year, setYear] = useState(String(currentYear));

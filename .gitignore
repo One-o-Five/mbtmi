@@ -1,4 +1,4 @@
-HELP.md
+# Gradle 빌드 결과물만 무시 (설정 파일은 포함해야 함)
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -36,8 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
-
-# Logs
+# 로그 파일
 logs
 *.log
 npm-debug.log*
@@ -46,12 +45,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node.js (프론트엔드용)
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# 에디터 설정
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -62,20 +62,17 @@ dist-ssr
 *.sln
 *.sw?
 
-
-
-
+# 개인 설정 파일 (비밀번호 등)
 src/main/resources/application.properties
 
+# 임시 파일
+*.tmp
+*.temp
 
-build.gradle
-settings.gradle
-gradle/wrapper/gradle-wrapper.properties
-<<<<<<< HEAD
-src/db.sql
-=======
-src/db.sql
+# 주의: 다음 파일들은 절대 .gitignore에 포함하면 안 됨!
+# build.gradle         ← 이것은 포함하면 안 됨!
+# settings.gradle      ← 이것은 포함하면 안 됨!
+# gradlew             ← 이것은 포함하면 안 됨!
+# gradlew.bat         ← 이것은 포함하면 안 됨!
 
-
-
->>>>>>> d7eb40ca2cca8588617e8865e7ee25679684a642
+# git merge 하다가 conflict가 났던 흔적도 남아있음! main에는 이런 오류가 들어가지 않게 주의합시다!
